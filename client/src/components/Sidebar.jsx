@@ -13,7 +13,12 @@ import MailIcon from "@mui/icons-material/Mail";
 
 function Sidebar({ open, toggleDrawer }) {
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box
+      // className="min-h-screen bg-black text-white"
+      sx={{ width: 250 }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem key={text} disablePadding>
