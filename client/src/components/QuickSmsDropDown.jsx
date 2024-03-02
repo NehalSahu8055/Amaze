@@ -10,7 +10,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 function QuickSmsDropDown({ quickSmsOpen, toggleQuickSms }) {
   return (
     <Paper
-      className="absolute right-2 top-[3.63rem] w-[22rem] rounded-t-none  "
+      className="absolute right-2 top-[3.2rem] w-[22rem] rounded-t-none  "
       role="presentation"
       //   onClick={toggleQuickSms}
       elevation={3}

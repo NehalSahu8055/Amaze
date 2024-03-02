@@ -1,58 +1,70 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import { Box, Button, Tooltip } from "@mui/material";
+import React from "react";
+import { Link } from "react-router-dom";
+import DesktopWindowsOutlinedIcon from "@mui/icons-material/DesktopWindowsOutlined";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import SendIcon from "@mui/icons-material/Send";
+import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
+import TableViewOutlinedIcon from "@mui/icons-material/TableViewOutlined";
+import InboxOutlinedIcon from "@mui/icons-material/InboxOutlined";
+import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
+import Dashboard from "./../pages/Dashboard";
 
-function Sidebar({ open, toggleDrawer }) {
-  const DrawerList = (
-    <Box
-      // className="min-h-screen bg-black text-white"
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
+function Sidebar() {
   return (
     <div>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
-      </Drawer>
+      <Box
+        className="z-sidebar fixed bottom-0 left-0 top-0 bg-black text-white"
+        role="presentation"
+        // onClick={toggleDrawer(false)}
+      >
+        <Link to="/">
+          <DashboardIcon className="mx-auto my-2 w-full fill-slate-200 text-[3.5rem]" />
+        </Link>
+
+        <ul className="grid place-content-center gap-6 pt-10">
+          <Tooltip arrow title="Dashboard" placement="right">
+            <Link to="/">
+              <li className="px-6">
+                <DesktopWindowsOutlinedIcon className="fill-gray-400 text-[2rem]" />
+              </li>
+            </Link>
+          </Tooltip>
+          <Link to="/">
+            <li className="px-6">
+              <SendIcon className="fill-gray-400 text-[2rem]" />
+            </li>
+          </Link>
+          <Link to="/">
+            <li className="px-6">
+              <AssessmentOutlinedIcon className="fill-gray-400 text-[2rem]" />
+            </li>
+          </Link>
+          <Tooltip arrow title="Entity" placement="right">
+            <Link to="/">
+              <li className="px-6">
+                <TableViewOutlinedIcon className="fill-gray-400 text-[2rem]" />
+              </li>
+            </Link>
+          </Tooltip>
+          <Tooltip arrow title="Sender" placement="right">
+            <Link to="/">
+              <li className="px-6">
+                <InboxOutlinedIcon className="fill-gray-400 text-[2rem]" />
+              </li>
+            </Link>
+          </Tooltip>
+          <Tooltip arrow title="Templates" placement="right">
+            <Link to="/">
+              <li className="px-6">
+                <InventoryOutlinedIcon className="fill-gray-400 text-[2rem]" />
+              </li>
+            </Link>
+          </Tooltip>
+        </ul>
+      </Box>
     </div>
   );
 }
+
 export default Sidebar;

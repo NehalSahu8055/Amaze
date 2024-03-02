@@ -6,8 +6,10 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import { Link } from "react-router-dom";
 function Footer() {
   return (
-    <footer className="flex items-center justify-between  px-8 py-6">
-      <small>All Rights Reserved 2024 | Amaze Software Technologies</small>
+    <footer className="fixed  bottom-0  flex w-full  items-center justify-between border-t px-8 py-2.5 ">
+      <small className="ml-[4.5rem] ">
+        &copy; All Rights Reserved 2024 | Amaze Software Technologies
+      </small>
       <ul className="flex gap-2 ">
         <li>
           <Link to="https://fb.com/">

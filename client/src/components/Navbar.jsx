@@ -9,7 +9,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Link } from "react-router-dom";
 import { Button, Divider, Paper } from "@mui/material";
-import Sidebar from "./Sidebar";
 import QuickSmsDropDown from "./QuickSmsDropDown";
 
 function Navbar() {
@@ -28,14 +27,13 @@ function Navbar() {
   return (
     <Paper
       component="header"
-      className="fixed left-0 right-0 top-0 rounded-none px-8 py-3.5 font-['Poppins'] "
+      className="z-header fixed  left-0 right-0 top-0 ml-[4.5rem]  rounded-none px-8 py-3.5 font-['Poppins'] "
       elevation={3}
     >
       <nav className="flex items-center justify-between">
-        <Button onClick={toggleDrawer(true)} className="text-slate-900">
+        {/* <Button onClick={toggleDrawer(true)} className="text-slate-900">
           <DashboardIcon className="text-[2.5rem]" />
-        </Button>
-        <Sidebar open={open} toggleDrawer={toggleDrawer} />
+        </Button> */}
         <ul className="flex justify-between gap-5">
           <li>
             <Link className="group flex items-center gap-2" to="/reports">

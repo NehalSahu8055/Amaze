@@ -11,6 +11,10 @@ export default {
       fontSize: {
         "4xl": "10rem",
       },
+      zIndex: {
+        header: "150",
+        sidebar: "200",
+      },
     },
   },
 
