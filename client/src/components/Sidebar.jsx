@@ -1,5 +1,5 @@
 import { Box, Button, Tooltip } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import DesktopWindowsOutlinedIcon from "@mui/icons-material/DesktopWindowsOutlined";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -9,12 +9,25 @@ import TableViewOutlinedIcon from "@mui/icons-material/TableViewOutlined";
 import InboxOutlinedIcon from "@mui/icons-material/InboxOutlined";
 import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
 import Dashboard from "./../pages/Dashboard";
+import HoverSidebar from "./HoverSidebar";
+import ItemsArray from "../data/ItemsHoverSideBar";
 
 function Sidebar() {
+  const [isComposeHover, setisComposeHover] = useState(false);
+  const [isReportHover, setisReportHover] = useState(false);
+
+  const handleComposeHover = () => {
+    setisComposeHover((prev) => !prev);
+  };
+  const handleReportHover = () => {
+    setisReportHover((prev) => !prev);
+  };
+  // console.log(ItemsArray[0]);
+
   return (
     <div>
       <Box
-        className="z-sidebar fixed bottom-0 left-0 top-0 bg-black text-white"
+        className="fixed bottom-0 left-0 top-0 z-sidebar bg-[#000000f8] text-white"
         role="presentation"
         // onClick={toggleDrawer(false)}
       >
@@ -22,7 +35,7 @@ function Sidebar() {
           <DashboardIcon className="mx-auto my-2 w-full fill-slate-200 text-[3.5rem]" />
         </Link>
 
-        <ul className="grid place-content-center gap-6 pt-10">
+        <ul className="relative grid place-content-center gap-6 pt-10">
           <Tooltip arrow title="Dashboard" placement="right">
             <Link to="/">
               <li className="px-6">
@@ -30,16 +43,23 @@ function Sidebar() {
               </li>
             </Link>
           </Tooltip>
-          <Link to="/">
+
+          <Link
+            onMouseOver={handleComposeHover}
+            onMouseOut={handleComposeHover}
+          >
             <li className="px-6">
               <SendIcon className="fill-gray-400 text-[2rem]" />
             </li>
           </Link>
-          <Link to="/">
+          {isComposeHover && <HoverSidebar props={ItemsArray[0]} />}
+
+          <Link onMouseOver={handleReportHover} onMouseOut={handleReportHover}>
             <li className="px-6">
               <AssessmentOutlinedIcon className="fill-gray-400 text-[2rem]" />
             </li>
           </Link>
+          {isReportHover && <HoverSidebar props={ItemsArray[1]} />}
           <Tooltip arrow title="Entity" placement="right">
             <Link to="/">
               <li className="px-6">

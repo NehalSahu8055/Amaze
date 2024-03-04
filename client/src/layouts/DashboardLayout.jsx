@@ -10,7 +10,7 @@ function DashboardLayout() {
       <Sidebar />
       <Navbar />
 
-      <main className="  mx-auto min-h-screen max-w-[65rem]  py-8  pb-[3rem] pl-[4.5rem] pt-[6.5rem]">
+      <main className=" min-h-screen w-full  py-8  pb-[5rem] pl-[8rem] pr-[4rem]  pt-[6.5rem]">
         <Outlet />
       </main>
       <Footer />

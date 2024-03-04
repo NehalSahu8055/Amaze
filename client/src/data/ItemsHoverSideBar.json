@@ -1,0 +1,24 @@
+[
+  {
+    "title": "Compose",
+    "items": [
+      "Compose Normal",
+      "Compose Unicode",
+      "Compose Custom",
+      "Compose Advance",
+      "Compose Large File"
+    ]
+  },
+  {
+    "title": "Reports",
+    "items": [
+      "MIS",
+      "SMS Stats",
+      "SMS Reports",
+      "Click Report",
+      "Click Report API",
+      "Scheduled Requests",
+      "Cancelled Requests"
+    ]
+  }
+]

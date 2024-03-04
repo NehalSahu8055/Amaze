@@ -27,7 +27,7 @@ function Navbar() {
   return (
     <Paper
       component="header"
-      className="z-header fixed  left-0 right-0 top-0 ml-[4.5rem]  rounded-none px-8 py-3.5 font-['Poppins'] "
+      className="fixed left-0  right-0 top-0 z-header ml-[4.5rem]  rounded-none px-8 py-3.5 font-['Poppins'] "
       elevation={3}
     >
       <nav className="flex items-center justify-between">
@@ -36,7 +36,7 @@ function Navbar() {
         </Button> */}
         <ul className="flex justify-between gap-5">
           <li>
-            <Link className="group flex items-center gap-2" to="/reports">
+            <Link className="group flex items-center gap-2" to="/sms-reports">
               <span>
                 <AssessmentIcon className="fill-slate-50 stroke-black group-hover:stroke-sky-600" />
               </span>

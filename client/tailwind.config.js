@@ -9,6 +9,7 @@ export default {
         desk: "1536px",
       },
       fontSize: {
+        // "3.5xl": "1.9rem",
         "4xl": "10rem",
       },
       zIndex: {

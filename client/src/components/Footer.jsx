@@ -6,7 +6,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import { Link } from "react-router-dom";
 function Footer() {
   return (
-    <footer className="fixed  bottom-0  flex w-full  items-center justify-between border-t px-8 py-2.5 ">
+    <footer className="fixed  bottom-0 flex  w-full items-center  justify-between border-t bg-slate-100 px-8 py-2.5 ">
       <small className="ml-[4.5rem] ">
         &copy; All Rights Reserved 2024 | Amaze Software Technologies
       </small>
