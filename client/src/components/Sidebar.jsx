@@ -22,7 +22,6 @@ function Sidebar() {
   const handleReportHover = () => {
     setisReportHover((prev) => !prev);
   };
-  // console.log(ItemsArray[0]);
 
   return (
     <div>

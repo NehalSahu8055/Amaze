@@ -4,6 +4,9 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import PersonalDetail from "../components/Profile/PersonalDetail";
+import TwoFactorAuthentication from "../components/Profile/TwoFactorAuthentication";
+import AccountDetail from "../components/Profile/AccountDetail";
 
 function Profile() {
   const [value, setValue] = React.useState("1");
@@ -12,13 +15,13 @@ function Profile() {
     setValue(newValue);
   };
   return (
-    <Box className="max-w-[34.2rem]">
+    <Box className="max-w-[32.2rem]">
       <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
         User Profile
       </h2>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList onChange={handleChange} aria-label="Profile Tab">
             <Tab
               className="text-base capitalize"
               label="Personal Details"
@@ -36,9 +39,16 @@ function Profile() {
             />
           </TabList>
         </Box>
-        <TabPanel value="1">Personal Details</TabPanel>
-        <TabPanel value="2">Account Details</TabPanel>
-        <TabPanel value="3">2-Factor Authentication</TabPanel>
+
+        <TabPanel value="1">
+          <PersonalDetail />
+        </TabPanel>
+        <TabPanel value="2">
+          <AccountDetail />
+        </TabPanel>
+        <TabPanel value="3">
+          <TwoFactorAuthentication />
+        </TabPanel>
       </TabContext>
     </Box>
   );
