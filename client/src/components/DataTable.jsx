@@ -1,18 +1,16 @@
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 export default function DataTable({ rows, columns }) {
   return (
-    <div className="bg-white" style={{ height: 400 }}>
+    <div style={{ height: 400, width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
+        components={{
+          Toolbar: () => <GridToolbar />,
         }}
-        pageSizeOptions={[5, 10]}
+        pageSize={5}
         checkboxSelection
       />
     </div>
