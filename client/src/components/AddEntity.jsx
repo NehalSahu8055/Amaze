@@ -1,11 +1,21 @@
-import React from "react";
-
+import { Button } from "@mui/material";
+import React, { useRef } from "react";
 function AddEntity() {
+  const entitiesForm = useRef(null);
+  const handleEntities = (e) => {
+    e.preventDefault();
+    const formData = new FormData(entitiesForm.current);
+    const entityId = formData.get("entity-id");
+    const remark = formData.get("remark");
+
+    // console.log(remark);
+  };
+
   return (
     <form
       ref={entitiesForm}
       onSubmit={handleEntities}
-      className="grid max-w-[20rem] gap-4 bg-white px-5 py-4 pt-4"
+      className="grid h-fit w-full gap-4 bg-white px-5 py-4 pt-4"
       action=""
     >
       <h3 className="text-xl font-semibold">Add Entity</h3>

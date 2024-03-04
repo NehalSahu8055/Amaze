@@ -67,14 +67,14 @@ function Sidebar() {
             </Link>
           </Tooltip>
           <Tooltip arrow title="Sender" placement="right">
-            <Link to="/">
+            <Link to="/sender">
               <li className="px-6">
                 <InboxOutlinedIcon className="fill-gray-400 text-[2rem]" />
               </li>
             </Link>
           </Tooltip>
           <Tooltip arrow title="Templates" placement="right">
-            <Link to="/">
+            <Link to="/templates">
               <li className="px-6">
                 <InventoryOutlinedIcon className="fill-gray-400 text-[2rem]" />
               </li>

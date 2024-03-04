@@ -19,6 +19,8 @@ import ApiManual from "./pages/ApiManual.jsx";
 import ChangePassword from "./pages/ChangePassword";
 import Settings from "./pages/Settings";
 import Entities from "./pages/Entities";
+import Sender from "./pages/Sender.jsx";
+import Templates from "./components/Profile/Templates.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +36,8 @@ const router = createBrowserRouter(
       <Route path="/settings" element={<Settings />} />
       <Route path="/change-password" element={<ChangePassword />} />
       <Route path="/entities" element={<Entities />} />
+      <Route path="/sender" element={<Sender />} />
+      <Route path="/templates" element={<Templates />} />
       {/* <Route path="/logout" element={<Logout />} /> */}
     </Route>,
   ),

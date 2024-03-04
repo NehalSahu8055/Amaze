@@ -1,48 +1,48 @@
 import { Box } from "@mui/material";
 import React from "react";
-import AddEntity from "../components/AddEntity";
 import DataTable from "../components/DataTable";
+import AddSender from "../components/AddSender";
 
-function Entities() {
+function Sender() {
   const columns = [
     { field: "id", headerName: "Sr.", width: 50 },
+    { field: "sender", headerName: "Sender", width: 140 },
     { field: "entity", headerName: "Entity", width: 140 },
-    { field: "creationDate", headerName: "Creation Date", width: 120 },
-    { field: "status", headerName: "Status", width: 90 },
-    { field: "remark", headerName: "Remark", width: 140 },
+    { field: "approvedOn", headerName: "Approved On", width: 120 },
+    { field: "status", headerName: "Status", width: 100 },
     { field: "action", headerName: "Action", width: 80 },
   ];
   const rows = [
     {
       id: 1,
+      sender: "MTCOM",
       entity: "170******714",
-      creationDate: "28 Feb 2024",
-      status: "ACTIVE",
-      remark: "Manage by JP",
+      approvedOn: "28 Feb 2024",
+      status: "APPROVED",
       action: "🗑️",
     },
     {
       id: 2,
+      sender: "MTCOM",
       entity: "170******714",
-      creationDate: "28 Feb 2024",
-      status: "ACTIVE",
-      remark: "Manage by JP",
+      approvedOn: "28 Feb 2024",
+      status: "APPROVED",
       action: "🗑️",
     },
     {
       id: 3,
+      sender: "MTCOM",
       entity: "170******714",
-      creationDate: "28 Feb 2024",
-      status: "ACTIVE",
-      remark: "Manage by JP",
+      approvedOn: "28 Feb 2024",
+      status: "APPROVED",
       action: "🗑️",
     },
     {
       id: 4,
+      sender: "MTCOM",
       entity: "170******714",
-      creationDate: "28 Feb 2024",
-      status: "ACTIVE",
-      remark: "Manage by JP",
+      approvedOn: "28 Feb 2024",
+      status: "APPROVED",
       action: "🗑️",
     },
   ];
@@ -50,14 +50,14 @@ function Entities() {
   return (
     <>
       <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
-        Manage Entities
+        Manage Sender
       </h2>
       <Box className="flex justify-between gap-6">
         <DataTable rows={rows} columns={columns} />
-        <AddEntity />
+        <AddSender />
       </Box>
     </>
   );
 }
 
-export default Entities;
+export default Sender;

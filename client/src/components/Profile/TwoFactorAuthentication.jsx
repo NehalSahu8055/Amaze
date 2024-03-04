@@ -13,7 +13,7 @@ import AuthenticationIllustration from "./AuthenticationIllustration";
 
 function TwoFactorAuthentication() {
   return (
-    <Box className=" ">
+    <Box className="flex justify-between gap-[9rem] ">
       <div>
         <FormControl>
           <FormLabel
@@ -46,7 +46,7 @@ function TwoFactorAuthentication() {
           Save this tab
         </Button>
       </div>
-      {/* <AuthenticationIllustration /> */}
+      <AuthenticationIllustration />
     </Box>
   );
 }
