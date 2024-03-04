@@ -1,117 +1,134 @@
-import React from "react";
+import { Button } from "@mui/material";
+import React, { useRef } from "react";
 
 function PersonalDetail() {
+  const personalDetailForm = useRef(null);
+  const handlePersonalDetail = (e) => {
+    e.preventDefault();
+    const formData = new FormData(personalDetailForm.current);
+    const name = formData.get("name");
+    const company = formData.get("company");
+    const mobile = formData.get("mobile");
+    const landlineNumber = formData.get("landline-number");
+    const website = formData.get("website");
+    console.log(name);
+  };
   return (
-    <form className="grid grid-cols-2 gap-4 pt-4" action="">
+    <form
+      ref={personalDetailForm}
+      onSubmit={handlePersonalDetail}
+      className="grid grid-cols-2 gap-4 pt-4"
+      action=""
+    >
       <div>
         <label
-          htmlFor="user-type"
+          htmlFor="name"
           className="mb-2 block font-medium capitalize text-gray-900"
         >
-          user type
+          name
         </label>
         <input
           type="text"
-          name="user-type"
-          id="user-type"
+          name="name"
+          id="name"
           placeholder=""
           className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete="user-type"
+          autoComplete="name"
           required
-          readOnly
         />
       </div>
       <div>
         <label
-          htmlFor=" billing-type"
+          htmlFor="company"
           className="mb-2 block font-medium capitalize text-gray-900"
         >
-          billing type
+          company
         </label>
         <input
           type="text"
-          name="billing-type"
-          id="billing-type"
+          name="company"
+          id="company"
           placeholder=""
           className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete=" billing-type"
+          autoComplete=" company"
           required
-          readOnly
         />
       </div>
       <div>
         <label
-          htmlFor="user-name"
+          htmlFor="mobile"
           className="mb-2 block font-medium capitalize text-gray-900"
         >
-          user name
+          mobile
         </label>
         <input
-          type="text"
-          name="user-name"
-          id="user-name"
+          type="number"
+          name="mobile"
+          id="mobile"
           placeholder=""
           className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete="user-name"
+          autoComplete="mobile"
           required
-          readOnly
         />
       </div>
 
       <div>
         <label
-          htmlFor="balance"
+          htmlFor="landline-number"
           className="mb-2 block font-medium capitalize text-gray-900"
         >
-          balance
+          landline number
         </label>
         <input
           type="number"
-          name="balance"
-          id="balance"
+          name="landline-number"
+          id="landline-number"
           placeholder=""
           className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete="balance"
+          autoComplete="landline-number"
           required
-          readOnly
         />
       </div>
       <div>
         <label
-          htmlFor="account-status"
+          htmlFor="email"
           className="mb-2 block font-medium capitalize text-gray-900"
         >
-          account status
+          email
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder=""
+          className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
+          autoComplete="email"
+          required
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="website"
+          className="mb-2 block font-medium capitalize text-gray-900"
+        >
+          website
         </label>
         <input
           type="text"
-          name="account-status"
-          id="account-status"
+          name="website"
+          id="website"
           placeholder=""
           className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete="account-status"
+          autoComplete="website"
           required
-          readOnly
         />
       </div>
-      <div>
-        <label
-          htmlFor="current-password"
-          className="mb-2 block font-medium capitalize text-gray-900"
-        >
-          account valid till
-        </label>
-        <input
-          type="number"
-          name=" account-valid-till"
-          id="account-valid-till"
-          placeholder=""
-          className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete="account-valid-till"
-          required
-          readOnly
-        />
-      </div>
+      <Button
+        type="submit"
+        className="mt-2 w-fit  bg-sky-600 px-4 capitalize text-white hover:bg-sky-600/90"
+      >
+        Save Now
+      </Button>
     </form>
   );
 }

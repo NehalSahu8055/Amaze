@@ -3,11 +3,11 @@ import React from "react";
 
 function QRCode() {
   return (
-    <Box className="mb-8 mt-4  flex gap-4 bg-white p-4">
+    <Box className="mb-8 mt-4  flex justify-center gap-4 bg-white p-6 px-10">
       <img
+        className="my-auto h-fit"
         src="https://img.freepik.com/free-vector/scan-me-qr-code_78370-2915.jpg?w=740&t=st=1709537538~exp=1709538138~hmac=de47dd4275c4c011d689f87c86e62e976d43b892c44c5c1edb9985cdd6a6c929"
-        width="100"
-        height="100"
+        width="150"
         alt=""
       />
       <div className="grid">
@@ -18,7 +18,7 @@ function QRCode() {
           If you have any problem with scanning the QR code enter this code
           manually into the APP
         </span>
-        <div className="flex items-center  justify-between">
+        <div className="flex items-center justify-between  gap-4">
           <div className="grid">
             <label
               htmlFor="user-type"
@@ -31,12 +31,12 @@ function QRCode() {
               name=" verification-code"
               id=" verification-code"
               placeholder=""
-              className={` focus:ring-primary-300 block h-fit w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
+              className={` focus:ring-primary-300 block h-fit w-[10rem]  rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
               autoComplete="verification-code"
               required
             />
           </div>
-          <Button className="mt-auto rounded-full bg-orange-400 px-4 py-2.5 uppercase text-white/90">
+          <Button className="mt-auto rounded-full bg-orange-400 px-6 py-2.5 uppercase text-white/90 hover:bg-orange-400/90">
             verify
           </Button>
         </div>

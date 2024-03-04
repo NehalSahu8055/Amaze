@@ -18,6 +18,7 @@ import Profile from "./pages/Profile.jsx";
 import ApiManual from "./pages/ApiManual.jsx";
 import ChangePassword from "./pages/ChangePassword";
 import Settings from "./pages/Settings";
+import Entities from "./pages/Entities";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
       <Route path="/api-manual" element={<ApiManual />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/change-password" element={<ChangePassword />} />
+      <Route path="/entities" element={<Entities />} />
       {/* <Route path="/logout" element={<Logout />} /> */}
     </Route>,
   ),

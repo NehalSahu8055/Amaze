@@ -9,7 +9,6 @@ function DashboardLayout() {
     <div className="flex">
       <Sidebar />
       <Navbar />
-
       <main className=" min-h-screen w-full  py-8  pb-[5rem] pl-[8rem] pr-[4rem]  pt-[6.5rem]">
         <Outlet />
       </main>

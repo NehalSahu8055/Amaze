@@ -60,7 +60,7 @@ function Sidebar() {
           </Link>
           {isReportHover && <HoverSidebar props={ItemsArray[1]} />}
           <Tooltip arrow title="Entity" placement="right">
-            <Link to="/">
+            <Link to="/entities">
               <li className="px-6">
                 <TableViewOutlinedIcon className="fill-gray-400 text-[2rem]" />
               </li>
