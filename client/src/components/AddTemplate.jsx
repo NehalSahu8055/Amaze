@@ -51,9 +51,10 @@ function AddTemplate({ settemplateRows }) {
   };
   const handleMessage = (e) => {
     const value = e.currentTarget.value;
+    const smsLengthLimit = lang === "HINDI" ? 160 : 70;
     setmessage(value);
 
-    if (message.length % 160 == 0 && message.length !== 0) {
+    if (message.length % smsLengthLimit === 0 && message.length !== 0) {
       setsmsCount((prev) => ++prev);
     } else if (message.length == 0) setsmsCount(1);
   };
@@ -81,6 +82,19 @@ function AddTemplate({ settemplateRows }) {
   };
   const handleCategory = (e, newValue) => {
     setcategory(newValue);
+  };
+
+  const handleReset = () => {
+    setcharCount(0);
+    setsmsCount(1);
+    setcategory("");
+    settitle("");
+    setsender("");
+    setentity("");
+    setdltTemplate("");
+    setmessage("");
+    setlang("HINDI");
+    setcurrentID(1);
   };
 
   //arrays
@@ -228,6 +242,7 @@ function AddTemplate({ settemplateRows }) {
           Save Template
         </Button>
         <Button
+          onClick={handleReset}
           type="reset"
           variant="outlined"
           className="mt-2 w-fit  border-slate-800  px-4 capitalize text-slate-800 hover:border-slate-800 hover:bg-slate-800 hover:text-white"
