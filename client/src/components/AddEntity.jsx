@@ -1,14 +1,29 @@
 import { Button } from "@mui/material";
-import React, { useRef } from "react";
-function AddEntity() {
+import React, { useRef, useState } from "react";
+import { getCurrentDate } from "../utils/getCurrentDate";
+function AddEntity({ setnewEntityData }) {
   const entitiesForm = useRef(null);
+  const [currentID, setcurrentID] = useState(1);
+
   const handleEntities = (e) => {
     e.preventDefault();
     const formData = new FormData(entitiesForm.current);
-    const entityId = formData.get("entity-id");
+    const entityId = formData.get("entityId");
     const remark = formData.get("remark");
 
-    // console.log(remark);
+    const newEntityData = {
+      id: currentID,
+      entity: entityId,
+      creationDate: getCurrentDate(),
+      status: "ACTIVE",
+      remark: remark,
+      action: "🗑️",
+    };
+    setnewEntityData((prev) => {
+      return [...prev, newEntityData];
+    });
+
+    setcurrentID((prev) => ++prev);
   };
 
   return (
@@ -22,11 +37,11 @@ function AddEntity() {
       <div className="grid gap-2">
         <input
           type="text"
-          name="entity-id"
-          id="entity-id"
+          name="entityId"
+          id="entityId"
           placeholder="Entity ID"
           className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete="entity-id"
+          autoComplete="entityId"
           required
         />
         <input

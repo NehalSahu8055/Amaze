@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import AddEntity from "../components/AddEntity";
 import DataTable from "../components/DataTable";
 
@@ -46,6 +46,7 @@ function Entities() {
       action: "🗑️",
     },
   ];
+  const [newEntityData, setnewEntityData] = useState(rows);
 
   return (
     <>
@@ -53,8 +54,8 @@ function Entities() {
         Manage Entities
       </h2>
       <Box className="flex justify-between gap-6">
-        <DataTable rows={rows} columns={columns} />
-        <AddEntity />
+        <DataTable rows={newEntityData} columns={columns} />
+        <AddEntity setnewEntityData={setnewEntityData} />
       </Box>
     </>
   );

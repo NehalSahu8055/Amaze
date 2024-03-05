@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import DataTable from "../components/DataTable";
 import AddSender from "../components/AddSender";
 
@@ -46,6 +46,7 @@ function Sender() {
       action: "🗑️",
     },
   ];
+  const [newSenderData, setnewSenderData] = useState(rows);
 
   return (
     <>
@@ -53,8 +54,8 @@ function Sender() {
         Manage Sender
       </h2>
       <Box className="flex justify-between gap-6">
-        <DataTable rows={rows} columns={columns} />
-        <AddSender />
+        <DataTable rows={newSenderData} columns={columns} />
+        <AddSender setnewSenderData={setnewSenderData} />
       </Box>
     </>
   );

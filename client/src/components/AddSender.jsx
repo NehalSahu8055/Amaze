@@ -1,14 +1,29 @@
 import { Button } from "@mui/material";
-import React, { useRef } from "react";
-function AddSender() {
+import React, { useRef, useState } from "react";
+import { getCurrentDate } from "../utils/getCurrentDate";
+function AddSender({ setnewSenderData }) {
   const senderForm = useRef(null);
+  const [currentID, setcurrentID] = useState(1);
+
   const handleSender = (e) => {
     e.preventDefault();
     const formData = new FormData(senderForm.current);
-    const senderId = formData.get("sender-id");
+    const entityId = formData.get("entityId");
     const senderName = formData.get("senderName");
+    // setnewSenderData({ id: currentID,entityId:entityId, approved });
+    const newSenderData = {
+      id: currentID,
+      sender: senderName,
+      entity: entityId,
+      approvedOn: getCurrentDate(),
+      status: "APPROVED",
+      action: "🗑️",
+    };
+    setnewSenderData((prev) => {
+      return [...prev, newSenderData];
+    });
 
-    console.log(senderName);
+    setcurrentID((prev) => ++prev);
   };
 
   return (
@@ -22,11 +37,11 @@ function AddSender() {
       <div className="grid gap-2">
         <input
           type="text"
-          name="sender-id"
-          id="sender-id"
-          placeholder="Sender ID"
+          name="entityId"
+          id="entityId"
+          placeholder="Entity ID"
           className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete="sender-id"
+          autoComplete="entity-id"
           required
         />
         <input

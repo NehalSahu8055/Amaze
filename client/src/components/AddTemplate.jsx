@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { TextareaAutosize } from "@mui/base";
 import React, { useRef, useState } from "react";
+import { getCurrentID } from "../utils/getCurrentID";
 
 function AddTemplate({ settemplateRows }) {
   //hooks
@@ -29,7 +30,7 @@ function AddTemplate({ settemplateRows }) {
   const [lang, setlang] = useState("HINDI");
 
   const newTemplate = {
-    id: 8,
+    id: getCurrentID,
     template: message,
     categorySender: category,
     titleDLTIDEntityID: entity,
