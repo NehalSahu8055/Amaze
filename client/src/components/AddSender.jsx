@@ -15,7 +15,7 @@ function AddSender() {
     <form
       ref={senderForm}
       onSubmit={handleSender}
-      className="grid h-fit w-full gap-4 bg-white px-5 py-4 pt-4"
+      className="grid h-fit w-full gap-4 rounded-md  border border-slate-200 bg-white px-5 py-4 pt-4"
       action=""
     >
       <h3 className="text-xl font-semibold">Add Sender</h3>

@@ -1,55 +1,90 @@
-import React from "react";
+import React, { useState } from "react";
 import AddTemplate from "../AddTemplate";
+import DataTable from "../DataTable";
+import { Box } from "@mui/material";
 
 function Templates() {
-  { field: "id", headerName: "Sr.", width: 50 },
-  { field: "sender", headerName: "Sender", width: 140 },
-  { field: "entity", headerName: "Entity", width: 140 },
-  { field: "approvedOn", headerName: "Approved On", width: 120 },
-  { field: "status", headerName: "Status", width: 100 },
-  { field: "action", headerName: "Action", width: 80 },
-];
-const rows = [
-  {
-    id: 1,
-    sender: "MTCOM",
-    entity: "170******714",
-    approvedOn: "28 Feb 2024",
-    status: "APPROVED",
-    action: "🗑️",
-  },
-  {
-    id: 2,
-    sender: "MTCOM",
-    entity: "170******714",
-    approvedOn: "28 Feb 2024",
-    status: "APPROVED",
-    action: "🗑️",
-  },
-  {
-    id: 3,
-    sender: "MTCOM",
-    entity: "170******714",
-    approvedOn: "28 Feb 2024",
-    status: "APPROVED",
-    action: "🗑️",
-  },
-  {
-    id: 4,
-    sender: "MTCOM",
-    entity: "170******714",
-    approvedOn: "28 Feb 2024",
-    status: "APPROVED",
-    action: "🗑️",
-  },
-];
+  const columns = [
+    { field: "id", headerName: "Sr.", width: 50 },
+    { field: "template", headerName: "Template", width: 140 },
+    { field: "categorySender", headerName: "Category/Sender", width: 140 },
+    {
+      field: "titleDLTIDEntityID",
+      headerName: "Title/DLT ID/Entity ID",
+      width: 120,
+    },
+    { field: "status", headerName: "Status/Type", width: 100 },
+    { field: "action", headerName: "Action", width: 80 },
+  ];
+  const rows = [
+    {
+      id: 1,
+      template:
+        "1234 is your OTP to log into Amaze App. Do not share this with anyone. Enjoy Investing!!  ",
+      categorySender: "170******714",
+      titleDLTIDEntityID: "28 Feb 2024",
+      status: "APPROVED",
+      action: "🗑️",
+    },
+    {
+      id: 2,
+      template:
+        "1234 is your OTP to log into Amaze App. Do not share this with anyone. Enjoy Investing!!  ",
+      categorySender: "170******714",
+      titleDLTIDEntityID: "28 Feb 2024",
+      status: "APPROVED",
+      action: "🗑️",
+    },
+    {
+      id: 3,
+      template:
+        "1234 is your OTP to log into Amaze App. Do not share this with anyone. Enjoy Investing!!  ",
+      categorySender: "170******714",
+      titleDLTIDEntityID: "28 Feb 2024",
+      status: "APPROVED",
+      action: "🗑️",
+    },
+    {
+      id: 4,
+      template:
+        "1234 is your OTP to log into Amaze App. Do not share this with anyone. Enjoy Investing!!  ",
+      categorySender: "170******714",
+      titleDLTIDEntityID: "28 Feb 2024",
+      status: "APPROVED",
+      action: "🗑️",
+    },
+    {
+      id: 5,
+      template:
+        "1234 is your OTP to log into Amaze App. Do not share this with anyone. Enjoy Investing!!  ",
+      categorySender: "170******714",
+      titleDLTIDEntityID: "28 Feb 2024",
+      status: "APPROVED",
+      action: "🗑️",
+    },
+
+    {
+      id: 6,
+      template:
+        "1234 is your OTP to log into Amaze App. Do not share this with anyone. Enjoy Investing!!  ",
+      categorySender: "170******714",
+      titleDLTIDEntityID: "28 Feb 2024",
+      status: "APPROVED",
+      action: "🗑️",
+    },
+  ];
+  const [templateRows, settemplateRows] = useState(rows);
+
+  console.log(...templateRows);
   return (
     <div>
       <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
         Manage Template
       </h2>
-      
-      <AddTemplate />
+      <Box className="flex justify-between gap-6">
+        <DataTable rows={templateRows} columns={columns} />
+        <AddTemplate settemplateRows={settemplateRows} />
+      </Box>
     </div>
   );
 }
