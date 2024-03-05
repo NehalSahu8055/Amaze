@@ -12,8 +12,7 @@ import {
   TextField,
 } from "@mui/material";
 import { TextareaAutosize } from "@mui/base";
-import React, { useRef, useState } from "react";
-import { getCurrentID } from "../utils/getCurrentID";
+import React, { useEffect, useRef, useState } from "react";
 
 function AddTemplate({ settemplateRows }) {
   //hooks
@@ -25,12 +24,15 @@ function AddTemplate({ settemplateRows }) {
   const [title, settitle] = useState();
   const [sender, setsender] = useState();
   const [entity, setentity] = useState();
-  const [dltTemplate, setdltTemplate] = useState();
+  const [dltTemplate, setdltTemplate] = useState("");
   const [message, setmessage] = useState("");
   const [lang, setlang] = useState("HINDI");
+  const [currentID, setcurrentID] = useState(1);
+
+  //errors
 
   const newTemplate = {
-    id: getCurrentID,
+    id: currentID,
     template: message,
     categorySender: category,
     titleDLTIDEntityID: entity,
@@ -45,6 +47,7 @@ function AddTemplate({ settemplateRows }) {
     settemplateRows((prev) => {
       return [...prev, newTemplate];
     });
+    setcurrentID((prev) => ++prev);
   };
   const handleMessage = (e) => {
     const value = e.currentTarget.value;
@@ -63,9 +66,13 @@ function AddTemplate({ settemplateRows }) {
   const handleSender = (e, newValue) => {
     setsender(newValue);
   };
-  const handleLDLTTemplate = (e, newValue) => {
+  const handleDLTTemplate = (e, newValue) => {
     setdltTemplate(newValue);
   };
+  useEffect(() => {
+    console.log(dltTemplate);
+  }, []);
+
   const handleTitle = (e, newValue) => {
     settitle(newValue);
   };
@@ -117,6 +124,7 @@ function AddTemplate({ settemplateRows }) {
       <Autocomplete
         className="w-full"
         onChange={handleEntity}
+        value={entity}
         size="small"
         disablePortal
         id="selectEntity"
@@ -125,10 +133,12 @@ function AddTemplate({ settemplateRows }) {
         renderInput={(params) => (
           <TextField {...params} label="Select Entity" />
         )}
+        required
       />
       <Autocomplete
         className="w-full"
         onChange={handleSender}
+        value={sender}
         size="small"
         disablePortal
         id="selectSender"
@@ -137,10 +147,12 @@ function AddTemplate({ settemplateRows }) {
         renderInput={(params) => (
           <TextField {...params} label="Select Sender" />
         )}
+        required
       />
       <Autocomplete
         className="w-full"
         onChange={handleCategory}
+        value={category}
         size="small"
         disablePortal
         id="selectTransaction"
@@ -149,22 +161,29 @@ function AddTemplate({ settemplateRows }) {
         renderInput={(params) => (
           <TextField {...params} label="Select Template Category" />
         )}
+        required
       />
 
       <TextField
         id="dlt-template-ID"
-        onChange={handleLDLTTemplate}
+        onChange={handleDLTTemplate}
+        value={dltTemplate}
         name="dlt-template-ID"
-        label="DLT Template ID"
+        label="DLT Template ID (Max 14 chars)"
         size="small"
+        inputProps={{ maxLength: 14 }}
+        required
       />
+
       <TextField
         id="title"
         onChange={handleTitle}
+        value={title}
         name="title"
         label="Title"
         variant="outlined"
         size="small"
+        required
       />
       <Button
         onClick={handleAddVariable}
@@ -194,6 +213,7 @@ function AddTemplate({ settemplateRows }) {
         className="rounded-md border border-gray-300 p-2.5 outline-none focus:border-2 focus:border-sky-600"
         placeholder=""
         minRows="6"
+        required
       />
       <div className="-mt-3 ml-auto space-x-2 font-semibold">
         <span className=" text-green-700">{message.length} Characters</span>

@@ -74,8 +74,6 @@ function Templates() {
     },
   ];
   const [templateRows, settemplateRows] = useState(rows);
-
-  console.log(...templateRows);
   return (
     <div>
       <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">

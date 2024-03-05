@@ -1,9 +1,11 @@
-import { Button } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { getCurrentDate } from "../utils/getCurrentDate";
 function AddEntity({ setnewEntityData }) {
   const entitiesForm = useRef(null);
   const [currentID, setcurrentID] = useState(1);
+  const entityArray = ["1780s890384093", "e128937197491824n"];
+  const [entity, setentity] = useState();
 
   const handleEntities = (e) => {
     e.preventDefault();
@@ -13,7 +15,7 @@ function AddEntity({ setnewEntityData }) {
 
     const newEntityData = {
       id: currentID,
-      entity: entityId,
+      entity: entity,
       creationDate: getCurrentDate(),
       status: "ACTIVE",
       remark: remark,
@@ -25,6 +27,9 @@ function AddEntity({ setnewEntityData }) {
 
     setcurrentID((prev) => ++prev);
   };
+  const handleEntity = (e, newValue) => {
+    setentity(newValue);
+  };
 
   return (
     <form
@@ -35,21 +40,24 @@ function AddEntity({ setnewEntityData }) {
     >
       <h3 className="text-xl font-semibold">Add Entity</h3>
       <div className="grid gap-2">
-        <input
-          type="text"
-          name="entityId"
-          id="entityId"
-          placeholder="Entity ID"
-          className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
-          autoComplete="entityId"
+        <Autocomplete
+          className="w-full"
+          onChange={handleEntity}
+          value={entity}
+          size="small"
+          disablePortal
+          id="entityID"
+          options={entityArray}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="Entity Id" />}
           required
         />
-        <input
+        <TextField
+          size="small"
           type="text"
           name="remark"
           id="remark"
           placeholder="Remark"
-          className={`focus:ring-primary-300 block w-full rounded-lg  border  bg-gray-50 p-2.5 text-gray-900 placeholder-gray-400 outline-none focus:ring-2  `}
           autoComplete="remark"
           required
         />
