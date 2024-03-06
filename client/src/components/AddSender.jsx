@@ -68,7 +68,7 @@ function AddSender({ setnewSenderData }) {
         type="submit"
         className="mt-2 w-fit  bg-slate-800 px-4 capitalize text-white hover:bg-slate-800/90"
       >
-        Save Now€
+        Save Now
       </Button>
     </form>
   );
