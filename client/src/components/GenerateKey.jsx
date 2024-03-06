@@ -2,7 +2,7 @@ import { Autocomplete, Button, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { getCurrentDate } from "../utils/getCurrentDate";
 
-function GenerateKey({ setnewKey }) {
+function GenerateKey({ setapikeysRows, classes }) {
   const genKeyForm = useRef(null);
   const [currentID, setcurrentID] = useState(1);
   const [entity, setgenKey] = useState();
@@ -13,29 +13,31 @@ function GenerateKey({ setnewKey }) {
     const formData = new FormData(genKeyForm.current);
     const entityId = formData.get("entityId");
 
-    // setnewKey({ id: currentID,entityId:entityId, approved });
     const newKey = {
       id: currentID,
       key: "123456",
       creationDate: getCurrentDate(),
       action: "🗑️",
     };
+    setapikeysRows((prev) => {
+      return [...prev, newKey];
+    });
   };
 
   return (
     <form
       ref={genKeyForm}
       onSubmit={handleSender}
-      className="grid h-fit w-full gap-4 rounded-md  border border-slate-200 bg-white px-5 py-4 pt-4"
+      className={`grid h-fit gap-4 rounded-md  border border-slate-200 bg-white px-5 py-4 pt-4 ${classes}`}
       action=""
     >
-      <h3 className="text-xl font-semibold">Add Sender</h3>
+      <h3 className="text-xl font-semibold">Generate New Key</h3>
 
       <Button
         type="submit"
         className="mt-2 w-fit  bg-slate-800 px-4 capitalize text-white hover:bg-slate-800/90"
       >
-        Save Now
+        Generate new API authentication key
       </Button>
     </form>
   );

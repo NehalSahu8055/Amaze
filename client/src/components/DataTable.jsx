@@ -1,11 +1,11 @@
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
-export default function DataTable({ rows, columns }) {
+export default function DataTable({ rows, columns, classes }) {
   return (
     <div>
       <DataGrid
-        className=" w-full bg-white"
+        className={`bg-white ${classes}`}
         rows={rows}
         columns={columns}
         components={{
