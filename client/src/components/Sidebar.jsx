@@ -44,6 +44,7 @@ function Sidebar() {
           </Tooltip>
 
           <Link
+            to="/compose"
             onMouseOver={handleComposeHover}
             onMouseOut={handleComposeHover}
           >

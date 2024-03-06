@@ -21,6 +21,7 @@ import Settings from "./pages/Settings";
 import Entities from "./pages/Entities";
 import Sender from "./pages/Sender.jsx";
 import Templates from "./components/Profile/Templates.jsx";
+import Compose from "./pages/Compose.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
       <Route path="/entities" element={<Entities />} />
       <Route path="/sender" element={<Sender />} />
       <Route path="/templates" element={<Templates />} />
+      <Route path="/compose" element={<Compose />} />
       {/* <Route path="/logout" element={<Logout />} /> */}
     </Route>,
   ),

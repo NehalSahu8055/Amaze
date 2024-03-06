@@ -1,8 +1,6 @@
-import { Box } from "@mui/material";
 import React, { useState } from "react";
 import DataTable from "../components/DataTable";
 import { getCurrentDate } from "./../utils/getCurrentDate";
-import GenerateKey from "./../components/GenerateKey";
 import { getCurrentTime } from "../utils/getCurrentTime";
 
 function Purchases() {
