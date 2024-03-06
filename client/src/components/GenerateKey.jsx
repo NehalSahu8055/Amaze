@@ -1,6 +1,7 @@
 import { Autocomplete, Button, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { getCurrentDate } from "../utils/getCurrentDate";
+import { getCurrentTime } from "../utils/getCurrentTime";
 
 function GenerateKey({ setapikeysRows, classes }) {
   const genKeyForm = useRef(null);
@@ -16,7 +17,7 @@ function GenerateKey({ setapikeysRows, classes }) {
     const newKey = {
       id: currentID,
       key: "123456",
-      creationDate: getCurrentDate(),
+      creationDate: getCurrentDate() + " " + getCurrentTime(),
       action: "🗑️",
     };
     setapikeysRows((prev) => {

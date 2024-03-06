@@ -27,7 +27,7 @@ function Apikeys() {
       </h2>
       <Box className="flex w-full justify-between gap-6 ">
         <DataTable classes="" rows={apikeysRows} columns={columns} />
-        <GenerateKey classes="w-[30%]" setapikeysRows={setapikeysRows} />
+        <GenerateKey classes="w-[40%]" setapikeysRows={setapikeysRows} />
       </Box>
     </Box>
   );
