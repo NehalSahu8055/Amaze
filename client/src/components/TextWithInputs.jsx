@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 export default function TextWithInputs({ text }) {
   const [editedText, setEditedText] = useState(text);
+  const [inputValues, setInputValues] = useState(
+    Array(text.split("{#var#}").length).fill(""),
+  );
 
   const handlePlaceholderClick = (index) => {
     setEditedText((prevText) => {
@@ -9,6 +12,18 @@ export default function TextWithInputs({ text }) {
       const after = prevText.substring(index + 7); // Assuming {#var#} is always 7 characters
       return `${before}<input type="text" />${after}`;
     });
+  };
+
+  const handleInputChange = (index, value) => {
+    const newInputValues = [...inputValues];
+    newInputValues[index] = value;
+    setInputValues(newInputValues);
+
+    const updatedText = editedText
+      .split("{#var#}")
+      .map((part, i) => (i === index ? value : part))
+      .join("{#var#}");
+    setEditedText(updatedText);
   };
 
   const renderTextWithInputs = () => {
@@ -20,14 +35,8 @@ export default function TextWithInputs({ text }) {
         {index < parts.length - 1 && (
           <input
             type="text"
-            onChange={(e) => {
-              const updatedText =
-                parts.slice(0, index + 1).join("{#var#}") +
-                "{#var#}" +
-                e.target.value +
-                parts.slice(index + 2).join("{#var#}");
-              setEditedText(updatedText);
-            }}
+            value={inputValues[index]}
+            onChange={(e) => handleInputChange(index, e.target.value)}
           />
         )}
       </React.Fragment>

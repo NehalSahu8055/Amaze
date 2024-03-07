@@ -15,7 +15,7 @@ import {
   Radio,
 } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InputFileUpload from "../Auxiliary/InputFileUpload";
 import LinkIcon from "@mui/icons-material/Link";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
@@ -25,11 +25,16 @@ import TextWithInputs from "../TextWithInputs";
 
 function ComposeNormal({ setnewSenderData }) {
   const customNormalForm = useRef(null);
+  const exactMsgTemplate = useRef(null);
+  const templateBox = useRef(null);
+  const placeholdersInput = useRef(null);
   const [currentID, setcurrentID] = useState(1);
   const [sender, setsender] = useState();
   const [category, setcategory] = useState();
-  const [templateCellData, settemplateCellData] = useState("");
+  const [open, setOpen] = useState(false);
 
+  const [templateCellData, settemplateCellData] = useState("");
+  const [dataFromTemplate, setdataFromTemplate] = useState("");
   const senderArray = ["1780s890384093", "e128937197491824n"];
   const categoryArray = ["Transaction", "Service", "Promotion"];
 
@@ -57,7 +62,7 @@ function ComposeNormal({ setnewSenderData }) {
   const handleCellDoubleClick = (params, event) => {
     console.log("Double clicked cell info:", params);
     params.field == "template" && settemplateCellData(params.value);
-    console.log(templateCellData);
+    handleClose();
   };
   const handleSender = (e, newValue) => {
     setsender(newValue);
@@ -65,13 +70,62 @@ function ComposeNormal({ setnewSenderData }) {
   const handleCategory = (e, newValue) => {
     setcategory(newValue);
   };
-  const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
-    setOpen(false);
+    setOpen((prev) => !prev);
   };
+  let inputTemp = "";
+
+  // const handleDataFromTemplate = () => {
+  //   console.log("LOL");
+  //   // setdataFromTemplate(ft);
+  // };
+
+  let s = templateCellData,
+    ft = "";
+  let finalText = "";
+
+  useEffect(() => {
+    const outputt = document.querySelector("#output");
+    var count = 1;
+    let arr1 = s.split("{#var#}");
+
+    for (let i = 0; i < arr1.length - 1; i++) {
+      inputTemp +=
+        arr1[i] +
+        `<input 
+        class="bg-yellow-100 px-2 outline-none mb-2 border-red-200 border" type="text" id="ti_${count}" name="ti">`;
+      finalText += arr1[i] + "~ti_" + count + "~";
+      count++;
+    }
+    inputTemp += arr1[arr1.length - 1];
+    finalText += arr1[arr1.length - 1];
+    if (arr1[arr1.length - 1] == "") {
+      inputTemp += `<input placeholder="Empty"  class="px-2 outline-none bg-yellow-100 border-red-300 border"  type="text" id="templateInput${count++}">`;
+      finalText += "~ti_" + count + "~";
+    }
+
+    outputt.innerHTML = inputTemp;
+
+    var id = 1;
+    document.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("blur", function (e) {
+        e.stopPropagation();
+        var inputValue = e.target.value;
+        ft = finalText;
+        document.getElementsByName("ti").forEach((input) => {
+          ft = ft.replace("~" + input.id + "~", input.value);
+        });
+        console.log(ft);
+        setdataFromTemplate(ft);
+      });
+    });
+    console.log(s);
+
+    return () => {};
+  }, [s, finalText]);
 
   return (
     <form
@@ -174,10 +228,12 @@ function ComposeNormal({ setnewSenderData }) {
         <Box>
           <TextareaAutosize
             // onChange={handleMessage}
-            // value={message}
+            ref={exactMsgTemplate}
+            value={dataFromTemplate}
             placeholder="Exact Message from Template"
             className=" w-full rounded-md rounded-b-none border border-gray-300 p-2.5 outline-none focus:border-2 focus:border-sky-600"
             minRows="5"
+            disabled
             required
           />
           <Box>
@@ -249,19 +305,20 @@ function ComposeNormal({ setnewSenderData }) {
         <span className=" font-semibold">
           Template( Edit your message here. )
         </span>
-        <div className="mt-4 h-[65vh] border p-2" contentEditable>
-          <TextWithInputs text={templateCellData} />
-          {templateCellData}
-        </div>
-        {/* <TextareaAutosize
-          // onChange={handleMessage}
-          // value={message}
-          value={templateCellData}
-          placeholder={templateCellData}
-          className="mt-4 h-[65vh] w-full rounded-md rounded-b-none border border-gray-300 p-2 outline-none focus:border-2 focus:border-sky-600"
-          minRows="10"
+        <Box
+          id="output"
+          ref={templateBox}
+          // onClick={(e) => {
+          //   // settemplateCellData(e.currentTarget.value);
+          //   handleDynamicTemplateData();
+          // }}
+          // value={templateCellData}
+          // onBlur={handleDataFromTemplate}
+          className="mt-4 h-[65vh] w-full rounded-md  border border-gray-300 p-2 outline-none focus:border-2 focus:border-sky-600"
           required
-        /> */}
+        >
+          Empty
+        </Box>
       </Box>
     </form>
   );

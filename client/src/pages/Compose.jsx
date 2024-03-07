@@ -25,7 +25,7 @@ function Compose() {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="Compose Tab">
             <Tab
-              className="text-base capitalize"
+              className="w-screen text-base capitalize"
               label="Compose Normal"
               value="1"
             />
