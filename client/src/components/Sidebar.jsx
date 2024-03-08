@@ -1,6 +1,6 @@
 import { Box, Button, Tooltip } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import DesktopWindowsOutlinedIcon from "@mui/icons-material/DesktopWindowsOutlined";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SendIcon from "@mui/icons-material/Send";
@@ -34,15 +34,23 @@ function Sidebar() {
         </Link>
 
         <ul className="relative grid place-content-center gap-6 pt-10">
-          <Tooltip arrow title="Dashboard" placement="right">
-            <Link to="/">
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-gray-300" : ""}`
+            }
+            to="/"
+          >
+            <Tooltip arrow title="Dashboard" placement="right">
               <li className="px-6">
                 <DesktopWindowsOutlinedIcon className="fill-gray-400 text-[2rem]" />
               </li>
-            </Link>
-          </Tooltip>
+            </Tooltip>
+          </NavLink>
 
-          <Link
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-gray-300" : ""}`
+            }
             to="/compose"
             onMouseOver={handleComposeHover}
             onMouseOut={handleComposeHover}
@@ -50,36 +58,60 @@ function Sidebar() {
             <li className="px-6">
               <SendIcon className="fill-gray-400 text-[2rem]" />
             </li>
-          </Link>
+          </NavLink>
           {isComposeHover && <HoverSidebar props={ItemsArray[0]} />}
 
-          <Link onMouseOver={handleReportHover} onMouseOut={handleReportHover}>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-gray-300" : ""}`
+            }
+            onMouseOver={handleReportHover}
+            onMouseOut={handleReportHover}
+          >
             <li className="px-6">
               <AssessmentOutlinedIcon className="fill-gray-400 text-[2rem]" />
             </li>
-          </Link>
+          </NavLink>
           {isReportHover && <HoverSidebar props={ItemsArray[1]} />}
-          <Tooltip arrow title="Entity" placement="right">
-            <Link to="/entities">
+
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-gray-300" : ""}`
+            }
+            to="/entities"
+          >
+            <Tooltip arrow title="Entity" placement="right">
               <li className="px-6">
                 <TableViewOutlinedIcon className="fill-gray-400 text-[2rem]" />
               </li>
-            </Link>
-          </Tooltip>
-          <Tooltip arrow title="Sender" placement="right">
-            <Link to="/sender">
+            </Tooltip>
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-gray-300" : ""}`
+            }
+            to="/sender"
+          >
+            <Tooltip arrow title="Sender" placement="right">
               <li className="px-6">
                 <InboxOutlinedIcon className="fill-gray-400 text-[2rem]" />
               </li>
-            </Link>
-          </Tooltip>
-          <Tooltip arrow title="Templates" placement="right">
-            <Link to="/templates">
+            </Tooltip>
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-gray-300" : ""}`
+            }
+            to="/templates"
+          >
+            <Tooltip arrow title="Templates" placement="right">
               <li className="px-6">
                 <InventoryOutlinedIcon className="fill-gray-400 text-[2rem]" />
               </li>
-            </Link>
-          </Tooltip>
+            </Tooltip>
+          </NavLink>
         </ul>
       </Box>
     </div>

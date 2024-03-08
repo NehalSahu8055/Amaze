@@ -23,5 +23,13 @@ export default {
     function ({ addVariant }) {
       addVariant("child", "& > *");
     },
+
+    function ({ addVariant }) {
+      addVariant("child2", "& > *:nth-child(2)");
+    },
+
+    function ({ addVariant }) {
+      addVariant("child3", "& > *:nth-child(3)");
+    },
   ],
 };

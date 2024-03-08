@@ -7,7 +7,7 @@ import KeyIcon from "@mui/icons-material/Key";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import PersonIcon from "@mui/icons-material/Person";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Button, Divider, Paper } from "@mui/material";
 import QuickSmsDropDown from "./QuickSmsDropDown";
 
@@ -36,36 +36,56 @@ function Navbar() {
         </Button> */}
         <ul className="flex justify-between gap-5">
           <li>
-            <Link className="group flex items-center gap-2" to="/sms-reports">
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? "child2:text-sky-600 child:child:stroke-sky-600" : ""} group flex items-center gap-2`
+              }
+              to="/sms-reports"
+            >
               <span>
                 <AssessmentIcon className="fill-slate-50 stroke-black group-hover:stroke-sky-600" />
               </span>
               <span className="group-hover:text-sky-600">SMS Reports</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="group flex items-center gap-2" to="/purchases">
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? "child2:text-sky-600 child:child:stroke-sky-600" : ""} group flex items-center gap-2`
+              }
+              to="/purchases"
+            >
               <span>
                 <InventoryIcon className="fill-slate-50 stroke-black group-hover:stroke-sky-600" />
               </span>
               <span className="group-hover:text-sky-600">Purchases</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="group flex items-center gap-2" to="/downloads">
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? "child2:text-sky-600 child:child:fill-sky-600" : ""} group flex items-center gap-2`
+              }
+              to="/downloads"
+            >
               <span>
                 <DownloadingSharpIcon className="group-hover:fill-sky-600" />
               </span>
               <span className="group-hover:text-sky-600">Downloads</span>
-            </Link>
+            </NavLink>
           </li>
           <li className="flex">
-            <Link className="group flex items-center gap-2" to="/apikeys">
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? "child2:text-sky-600 child:child:fill-sky-600" : ""} group flex items-center gap-2`
+              }
+              to="/apikeys"
+            >
               <span>
                 <KeyIcon className="group-hover:fill-sky-600" />
               </span>
               <span className="group-hover:text-sky-600 ">API Keys</span>
-            </Link>
+            </NavLink>
           </li>
         </ul>
         <ul className="flex justify-between gap-5">
