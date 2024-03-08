@@ -28,7 +28,6 @@ function Sidebar() {
       <Box
         className="fixed bottom-0 left-0 top-0 z-sidebar bg-[#000000f8] text-white"
         role="presentation"
-        // onClick={toggleDrawer(false)}
       >
         <Link to="/">
           <DashboardIcon className="mx-auto my-2 w-full fill-slate-200 text-[3.5rem]" />

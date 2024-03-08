@@ -11,15 +11,14 @@ import BrowseGalleryOutlinedIcon from "@mui/icons-material/BrowseGalleryOutlined
 function Home() {
   return (
     <article>
-      <h2 className="pb-4 text-2xl font-bold capitalize">SMS stats</h2>
-      <span className=" font-semibold capitalize text-slate-900">
+      <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
+        SMS Stats
+      </h2>
+      <span className=" text-xl font-semibold capitalize text-slate-900">
         Quick stats
       </span>
       <Box className="grid w-full grid-cols-1 gap-2.5 pt-4 tab:w-fit tab:grid-cols-3 laptop:grid-cols-4">
-        <Card
-          elevation={1}
-          className="flex w-full justify-between tab:w-[15rem]"
-        >
+        <Card className="flex w-full justify-between tab:w-[15rem]">
           <CardContent className="flex w-full items-center justify-between">
             <Box className="flex flex-col">
               <span className="text-sm font-semibold uppercase text-sky-500">
