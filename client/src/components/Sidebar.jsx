@@ -42,7 +42,7 @@ function Sidebar() {
           >
             <Tooltip arrow title="Dashboard" placement="right">
               <li className="px-6">
-                <DesktopWindowsOutlinedIcon className="fill-gray-400 text-[2rem]" />
+                <DesktopWindowsOutlinedIcon className="fill-gray-400 text-[2rem] hover:fill-gray-300" />
               </li>
             </Tooltip>
           </NavLink>
@@ -55,20 +55,20 @@ function Sidebar() {
             onMouseOut={handleComposeHover}
           >
             <li className="px-6">
-              <SendIcon className="fill-gray-400 text-[2rem]" />
+              <SendIcon className="fill-gray-400 text-[2rem] hover:fill-gray-300" />
             </li>
           </NavLink>
           {isComposeHover && <HoverSidebar props={ItemsArray[0]} />}
-          Hello
           <NavLink
             className={({ isActive }) =>
               `${isActive ? "child:child:fill-gray-300" : ""}`
             }
             onMouseOver={handleReportHover}
             onMouseOut={handleReportHover}
+            to="/"
           >
             <li className="px-6">
-              <AssessmentOutlinedIcon className="fill-gray-400 text-[2rem]" />
+              <AssessmentOutlinedIcon className="fill-gray-400 text-[2rem] hover:fill-gray-300" />
             </li>
           </NavLink>
           {isReportHover && <HoverSidebar props={ItemsArray[1]} />}
@@ -80,7 +80,7 @@ function Sidebar() {
           >
             <Tooltip arrow title="Entity" placement="right">
               <li className="px-6">
-                <TableViewOutlinedIcon className="fill-gray-400 text-[2rem]" />
+                <TableViewOutlinedIcon className="fill-gray-400 text-[2rem] hover:fill-gray-300" />
               </li>
             </Tooltip>
           </NavLink>
@@ -92,7 +92,7 @@ function Sidebar() {
           >
             <Tooltip arrow title="Sender" placement="right">
               <li className="px-6">
-                <InboxOutlinedIcon className="fill-gray-400 text-[2rem]" />
+                <InboxOutlinedIcon className="fill-gray-400 text-[2rem] hover:fill-gray-300" />
               </li>
             </Tooltip>
           </NavLink>
@@ -104,7 +104,7 @@ function Sidebar() {
           >
             <Tooltip arrow title="Templates" placement="right">
               <li className="px-6">
-                <InventoryOutlinedIcon className="fill-gray-400 text-[2rem]" />
+                <InventoryOutlinedIcon className="fill-gray-400 text-[2rem] hover:fill-gray-300" />
               </li>
             </Tooltip>
           </NavLink>

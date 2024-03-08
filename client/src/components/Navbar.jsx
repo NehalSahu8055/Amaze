@@ -8,7 +8,7 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import PersonIcon from "@mui/icons-material/Person";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Link, NavLink } from "react-router-dom";
-import { Button, Divider, Paper } from "@mui/material";
+import { Button, ClickAwayListener, Divider, Paper } from "@mui/material";
 import QuickSmsDropDown from "./QuickSmsDropDown";
 
 function Navbar() {
@@ -38,7 +38,7 @@ function Navbar() {
           <li>
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? "child2:text-sky-600 child:child:stroke-sky-600" : ""} group flex items-center gap-2`
+                `${isActive ? "child:child:stroke-sky-600 child2:text-sky-600" : ""} group flex items-center gap-2`
               }
               to="/sms-reports"
             >
@@ -51,7 +51,7 @@ function Navbar() {
           <li>
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? "child2:text-sky-600 child:child:stroke-sky-600" : ""} group flex items-center gap-2`
+                `${isActive ? "child:child:stroke-sky-600 child2:text-sky-600" : ""} group flex items-center gap-2`
               }
               to="/purchases"
             >
@@ -64,7 +64,7 @@ function Navbar() {
           <li>
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? "child2:text-sky-600 child:child:fill-sky-600" : ""} group flex items-center gap-2`
+                `${isActive ? "child:child:fill-sky-600 child2:text-sky-600" : ""} group flex items-center gap-2`
               }
               to="/downloads"
             >
@@ -77,7 +77,7 @@ function Navbar() {
           <li className="flex">
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? "child2:text-sky-600 child:child:fill-sky-600" : ""} group flex items-center gap-2`
+                `${isActive ? "child:child:fill-sky-600 child2:text-sky-600" : ""} group flex items-center gap-2`
               }
               to="/apikeys"
             >
@@ -119,10 +119,16 @@ function Navbar() {
                 />
               </span>
             </Button>
-            <QuickSmsDropDown
-              quickSmsOpen={quickSmsOpen}
-              toggleQuickSms={toggleQuickSms}
-            />
+            {quickSmsOpen && (
+              <ClickAwayListener onClickAway={toggleQuickSms}>
+                <div>
+                  <QuickSmsDropDown
+                    quickSmsOpen={quickSmsOpen}
+                    toggleQuickSms={toggleQuickSms}
+                  />
+                </div>
+              </ClickAwayListener>
+            )}
           </li>
         </ul>
       </nav>
