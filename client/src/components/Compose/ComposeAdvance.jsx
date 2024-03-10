@@ -1,7 +1,7 @@
 import React from "react";
-
+import CustomNormal from "./ComposeNormal";
 function ComposeAdvance() {
-  return <div>ComposeAdvance</div>;
+  return <CustomNormal />;
 }
 
 export default ComposeAdvance;

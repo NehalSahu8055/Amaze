@@ -1,7 +1,8 @@
 import React from "react";
+import ComposeNormal from "./ComposeNormal";
 
 function ComposeUnicode() {
-  return <div>ComposeUnicode</div>;
+  return <ComposeNormal />;
 }
 
 export default ComposeUnicode;

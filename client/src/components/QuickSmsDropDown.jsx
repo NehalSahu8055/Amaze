@@ -1,6 +1,6 @@
 import { Box, Button, Paper } from "@mui/material";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -27,54 +27,79 @@ function QuickSmsDropDown({ quickSmsOpen, toggleQuickSms }) {
           </p>
         </li>
         <li className=" border-b border-b-slate-300 px-2.5 py-2 ">
-          <Link to="/profile">
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-sky-600 child:child:text-sky-600" : ""}`
+            }
+            to="/profile"
+          >
             <Button className="group flex w-full items-center justify-start gap-4  text-slate-800">
-              <PersonIcon className="  group-hover:fill-sky-600" />
+              <PersonIcon className="group-hover:fill-sky-600" />
               <span className="text-[1rem] capitalize group-hover:text-sky-600">
                 Profile
               </span>
             </Button>
-          </Link>
+          </NavLink>
         </li>
         <li className=" border-b border-b-slate-300 px-2.5 py-2 ">
-          <Link to="/api-manual">
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-sky-600 child:child:text-sky-600" : ""}`
+            }
+            to="/api-manual"
+          >
             <Button className="group flex w-full items-center justify-start gap-4  text-slate-800">
               <ContentPasteIcon className="  group-hover:fill-sky-600" />
               <span className="text-[1rem] capitalize group-hover:text-sky-600">
                 API Manual
               </span>
             </Button>
-          </Link>
+          </NavLink>
         </li>
         <li className=" border-b border-b-slate-300 px-2.5 py-2 ">
-          <Link to="/settings">
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-sky-600 child:child:text-sky-600" : ""}`
+            }
+            to="/settings"
+          >
             <Button className="group flex w-full items-center justify-start gap-4  text-slate-800">
               <SettingsIcon className="  group-hover:fill-sky-600" />
               <span className="text-[1rem] capitalize group-hover:text-sky-600">
                 Settings
               </span>
             </Button>
-          </Link>
+          </NavLink>
         </li>
         <li className=" border-b border-b-slate-300 px-2.5 py-2 ">
-          <Link to="/change-password">
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-sky-600 child:child:text-sky-600" : ""}`
+            }
+            to="/change-password"
+          >
             <Button className="group flex w-full items-center justify-start gap-4  text-slate-800">
               <LockOutlinedIcon className="  group-hover:fill-sky-600" />
               <span className="text-[1rem] capitalize group-hover:text-sky-600">
                 Change Password
               </span>
             </Button>
-          </Link>
+          </NavLink>
         </li>
         <li className=" border-b border-b-slate-300 px-2.5 py-2 ">
-          <Link to="/logout">
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? "child:child:fill-sky-600 child:child:text-sky-600" : ""}`
+            }
+            to="/logout"
+          >
             <Button className="group flex w-full items-center justify-start gap-4  text-slate-800">
               <LogoutOutlinedIcon className="  group-hover:fill-sky-600" />
               <span className="text-[1rem] capitalize group-hover:text-sky-600">
                 Logout
               </span>
             </Button>
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </Paper>
