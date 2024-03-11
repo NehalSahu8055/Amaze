@@ -18,14 +18,14 @@ function Compose() {
   };
   return (
     <Box>
-      <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
+      <h2 className="pb-5 text-3xl font-semibold tracking-tight  text-slate-950">
         SMS Compose
       </h2>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="Compose Tab">
             <Tab
-              className="w-screen text-base capitalize"
+              className=" text-base capitalize"
               label="Compose Normal"
               value="1"
             />

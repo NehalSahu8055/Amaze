@@ -11,6 +11,7 @@ export default function DataTable({
   return (
     <Box>
       <DataGrid
+        density="compact"
         onCellDoubleClick={handleCellDoubleClick}
         className={`bg-white ${classes}`}
         rows={rows}

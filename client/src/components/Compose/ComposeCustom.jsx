@@ -10,22 +10,33 @@ import {
   TextField,
   TextareaAutosize,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import LinkIcon from "@mui/icons-material/Link";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FilePicker from "../Auxiliary/FilePicker";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
-// import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import DateAndTimePicker from "../Auxiliary/DateAndTimePicker";
+import getScheduleBaseTimeDate from "../../utils/getScheduleBaseTimeDate";
+import getCurrentDateTime from "../../utils/getCurrentDateTime";
+import TemplateModal from "../Modal/TemplateModal";
 
 function ComposeCustom() {
   const [sender, setsender] = useState();
   const [category, setcategory] = useState();
   const [mobNo, setmobNo] = useState();
-
-  const senderArray = ["1780s890384093", "e128937197491824n"];
+  const [isScheduled, setisScheduled] = useState(false);
+  const [scheduledDateTime, setscheduledDateTime] = useState();
+  const senderArray = ["", "e128937197491824n"];
   const categoryArray = ["Transaction", "Service", "Promotion"];
   const mobNoArray = ["9011111111", "9013231111", "901311111"];
+  const [open, setOpen] = useState(false);
+  const [templateCellData, settemplateCellData] = useState("");
+
+  let inputTemp = "";
+  let s = templateCellData;
+  let ft = "";
+  let finalText = "";
 
   const handleCategory = (e, newValue) => {
     setcategory(newValue);
@@ -36,6 +47,65 @@ function ComposeCustom() {
   const handleSender = (e, newValue) => {
     setsender(newValue);
   };
+  const handleIsScheduled = (e, newValue) => {
+    setisScheduled((prev) => !prev);
+    setscheduledDateTime(getCurrentDateTime);
+  };
+  const handleDateTimeChange = (newDateTime) => {
+    const scheduledDateTime = newDateTime.format("YYYY-MM-DD HH:mm");
+    setscheduledDateTime(scheduledDateTime);
+    console.log(scheduledDateTime);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen((prev) => !prev);
+  };
+  const handleCellDoubleClick = (params, event) => {
+    console.log("Double clicked cell info:", params);
+    params.field == "template" && settemplateCellData(params.value);
+    handleClose();
+  };
+
+  const formattedTime = getScheduleBaseTimeDate();
+
+  // useEffect(() => {
+  //   const outputt = document.querySelector("#output");
+  //   var count = 1;
+  //   let arr1 = s.split("{#var#}");
+
+  //   for (let i = 0; i < arr1.length - 1; i++) {
+  //     inputTemp +=
+  //       arr1[i] +
+  //       `<input
+  //       class="bg-yellow-100 px-2 outline-none mb-2 border-red-200 border" type="text" id="ti_${count}" name="ti">`;
+  //     finalText += arr1[i] + "~ti_" + count + "~";
+  //     count++;
+  //   }
+  //   inputTemp += arr1[arr1.length - 1];
+  //   finalText += arr1[arr1.length - 1];
+  //   if (arr1[arr1.length - 1] == "") {
+  //     // inputTemp += `<input placeholder="Empty"  class="px-2 outline-none bg-yellow-100 border-red-300 border"  type="text" id="templateInput${count++}">`;
+  //     finalText += "~ti_" + count + "~";
+  //   }
+
+  //   outputt.innerHTML = inputTemp;
+
+  //   var id = 1;
+  //   document.querySelectorAll("input").forEach((input) => {
+  //     input.addEventListener("blur", function (e) {
+  //       var inputValue = e.target.value;
+  //       ft = finalText;
+  //       document.getElementsByName("ti").forEach((input) => {
+  //         ft = ft.replace("~" + input.id + "~", input.value);
+  //       });
+  //       console.log(ft);
+  //       setdataFromTemplate(ft);
+  //     });
+  //   });
+  // }, [s, finalText]);
+
   return (
     <form
       // ref={customNormalForm}
@@ -43,6 +113,13 @@ function ComposeCustom() {
       className="flex h-fit w-full flex-col gap-6 rounded-md  border border-slate-200 bg-white p-6 pt-2"
       action=""
     >
+      {open && (
+        <TemplateModal
+          open={open}
+          handleClose={handleClose}
+          handleCellDoubleClick={handleCellDoubleClick}
+        />
+      )}
       <FormControl className="py-2">
         <RadioGroup defaultValue="dynamicSMS" name="radio-buttons-group">
           <Box className="pt-2">
@@ -174,6 +251,12 @@ function ComposeCustom() {
               required
             />
             <Box>
+              {isScheduled && (
+                <DateAndTimePicker
+                  currentTime={formattedTime}
+                  handleDateTimeChange={handleDateTimeChange}
+                />
+              )}
               <Box className="grid">
                 <span className="font-semibold text-slate-700">
                   Selected Col In order
@@ -206,23 +289,37 @@ function ComposeCustom() {
               required
               readOnly
             />
-            <FormControl className="py-2">
-              <RadioGroup defaultValue="now" name="radio-buttons-group">
-                <Box className="pt-2">
-                  <FormControlLabel
-                    value="now"
-                    control={<Radio />}
-                    label="Now"
-                  />
-                  <FormControlLabel
-                    value="scheduled"
-                    control={<Radio />}
-                    label="Scheduled"
-                  />
-                </Box>
-              </RadioGroup>
-            </FormControl>
+            <Box className="grid">
+              <FormControl className="py-2">
+                <RadioGroup
+                  onChange={handleIsScheduled}
+                  defaultValue="now"
+                  name="radio-buttons-group"
+                >
+                  <Box className="pt-2">
+                    <FormControlLabel
+                      value="now"
+                      control={<Radio />}
+                      label="Now"
+                    />
+                    <FormControlLabel
+                      value="scheduled"
+                      control={<Radio />}
+                      label="Scheduled"
+                    />
+                  </Box>
+                </RadioGroup>
+              </FormControl>
+              <TextField
+                value={scheduledDateTime}
+                size="small"
+                className="w-fit"
+                readOnly
+                disabled
+              />
+            </Box>
           </Box>
+
           <Box className="flex-[0.5]">
             <TextareaAutosize
               // ref={exactMsgTemplate}
@@ -246,7 +343,7 @@ function ComposeCustom() {
                   URL
                 </Button>
                 <Button
-                  // onClick={handleClickOpen}
+                  onClick={handleClickOpen}
                   component="label"
                   role={undefined}
                   tabIndex={-1}
@@ -287,7 +384,6 @@ function ComposeCustom() {
       >
         Send Now
       </Button>
-      {/* <DateTimePicker /> */}
     </form>
   );
 }

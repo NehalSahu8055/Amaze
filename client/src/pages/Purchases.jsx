@@ -24,10 +24,10 @@ function Purchases() {
   ];
   return (
     <>
-      <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
+      <h2 className="pb-5  text-3xl font-semibold tracking-tight  text-slate-950">
         Credit Purchase History
       </h2>
-      <DataTable classes="" rows={rows} columns={columns} />
+      <DataTable rows={rows} columns={columns} />
     </>
   );
 }

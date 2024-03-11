@@ -29,8 +29,6 @@ function AddTemplate({ settemplateRows }) {
   const [lang, setlang] = useState("HINDI");
   const [currentID, setcurrentID] = useState(1);
 
-  //errors
-
   const newTemplate = {
     id: currentID,
     template: message,

@@ -11,7 +11,7 @@ import BrowseGalleryOutlinedIcon from "@mui/icons-material/BrowseGalleryOutlined
 function Home() {
   return (
     <article>
-      <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
+      <h2 className="pb-5 text-3xl font-semibold tracking-tight  text-slate-950">
         SMS Stats
       </h2>
       <span className=" text-xl font-semibold capitalize text-slate-900">

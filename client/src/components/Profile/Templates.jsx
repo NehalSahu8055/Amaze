@@ -73,6 +73,7 @@ function Templates() {
       action: "🗑️",
     },
   ];
+  const [lang, setlang] = useState("HINDI");
   const [templateRows, settemplateRows] = useState(rows);
   return (
     <div>

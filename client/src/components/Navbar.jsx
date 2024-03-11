@@ -27,7 +27,7 @@ function Navbar() {
   return (
     <Paper
       component="header"
-      className="fixed left-0  right-0 top-0 z-header ml-[4.5rem]  rounded-none px-8 py-3.5 font-['Poppins'] "
+      className="fixed left-0  right-0 top-0 z-header ml-[4.5rem]  rounded-none px-8 py-2 font-['Poppins'] "
       elevation={3}
     >
       <nav className="flex items-center justify-between">
@@ -38,7 +38,7 @@ function Navbar() {
           <li>
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? "child2:text-sky-600 child:child:stroke-sky-600" : ""} group flex items-center gap-2`
+                `${isActive ? "child:child:stroke-sky-600 child2:text-sky-600" : ""} group flex items-center gap-2`
               }
               to="/sms-reports"
             >
@@ -51,7 +51,7 @@ function Navbar() {
           <li>
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? "child2:text-sky-600 child:child:stroke-sky-600" : ""} group flex items-center gap-2`
+                `${isActive ? "child:child:stroke-sky-600 child2:text-sky-600" : ""} group flex items-center gap-2`
               }
               to="/purchases"
             >
@@ -64,7 +64,7 @@ function Navbar() {
           <li>
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? "child2:text-sky-600 child:child:fill-sky-600" : ""} group flex items-center gap-2`
+                `${isActive ? "child:child:fill-sky-600 child2:text-sky-600" : ""} group flex items-center gap-2`
               }
               to="/downloads"
             >
@@ -77,7 +77,7 @@ function Navbar() {
           <li className="flex">
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? "child2:text-sky-600 child:child:fill-sky-600" : ""} group flex items-center gap-2`
+                `${isActive ? "child:child:fill-sky-600 child2:text-sky-600" : ""} group flex items-center gap-2`
               }
               to="/apikeys"
             >

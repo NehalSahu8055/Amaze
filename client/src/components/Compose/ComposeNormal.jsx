@@ -21,6 +21,8 @@ import LinkIcon from "@mui/icons-material/Link";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import TemplateModal from "./../Modal/TemplateModal";
+import DateAndTimePicker from "../Auxiliary/DateAndTimePicker";
+import getScheduleBaseTimeDate from "../../utils/getScheduleBaseTimeDate";
 
 function ComposeNormal({ setnewSenderData }) {
   const customNormalForm = useRef(null);
@@ -33,12 +35,41 @@ function ComposeNormal({ setnewSenderData }) {
   const [open, setOpen] = useState(false);
   const [templateCellData, settemplateCellData] = useState("");
   const [dataFromTemplate, setdataFromTemplate] = useState("");
+  const [isScheduled, setisScheduled] = useState(false);
+  const [scheduledDateTime, setscheduledDateTime] = useState();
+  const [isExactMsgTemplate, setisExactMsgTemplate] = useState(true);
 
+  const languageArray = [
+    "AMHARIC",
+    "ARABIC",
+    "BENGALI",
+    "CHINESE",
+    "GREEK",
+    "GUJARATI",
+    "HINDI",
+    "KANNADA",
+    "MALAYALAM",
+    "MARATHI",
+    "NEPALI",
+    "ORIYA",
+    "PERSIAN",
+    "PUNJABI",
+    "RUSSIAN",
+    "SANSKRIT",
+    "SERBIAN",
+    "SINHALESE",
+    "TAMIL",
+    "TELUGU",
+    "TIGRINYA",
+    "URDU",
+  ];
+  let isAdvanceOrLargeCustom = true;
   let inputTemp = "";
   let s = templateCellData;
   let ft = "";
   let finalText = "";
 
+  const formattedTime = getScheduleBaseTimeDate();
   const senderArray = ["1780s890384093", "e128937197491824n"];
   const categoryArray = ["Transaction", "Service", "Promotion"];
 
@@ -79,6 +110,18 @@ function ComposeNormal({ setnewSenderData }) {
   };
   const handleClose = () => {
     setOpen((prev) => !prev);
+  };
+  const handleIsScheduled = (e, newValue) => {
+    setisScheduled((prev) => !prev);
+    setscheduledDateTime(getCurrentDateTime);
+  };
+  const handleDateTimeChange = (newDateTime) => {
+    const scheduledDateTime = newDateTime.format("YYYY-MM-DD HH:mm");
+    setscheduledDateTime(scheduledDateTime);
+    console.log(scheduledDateTime);
+  };
+  const handleLanguage = (e, newValue) => {
+    setlang(newValue);
   };
 
   useEffect(() => {
@@ -133,66 +176,66 @@ function ComposeNormal({ setnewSenderData }) {
       )}
 
       <Box className="flex w-full flex-col gap-4">
-        <Box className="mb-1 flex justify-between gap-4">
-          <TextField
-            size="small"
-            type="text"
-            className="w-full"
-            name="campaignTitle"
-            id="campaignTitle"
-            label="Campaign Title"
-            placeholder="Campaign Title"
-            autoComplete="campaignTitle"
-            required
-            inputProps={{ maxLength: 6 }}
-          />
-          <Autocomplete
-            className="w-full"
-            label="Select Sender"
-            onChange={handleSender}
-            value={sender}
-            size="small"
-            disablePortal
-            id="senderID"
-            options={senderArray}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Select Sender" />
-            )}
-            required
-          />
-          <Autocomplete
-            className="w-full"
-            label="Select Category"
-            onChange={handleCategory}
-            value={category}
-            size="small"
-            disablePortal
-            id="senderID"
-            options={categoryArray}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Select Category" />
-            )}
-            required
-          />
-
-          <TextField
-            size="small"
-            type="text"
-            className="w-full"
-            name="entityID"
-            id="entityID"
-            placeholder="Entity ID ( 10********053 )"
-            autoComplete="entityID"
-            required
-            InputProps={{
-              readOnly: true,
-            }}
-            disabled
-          />
-        </Box>
         <Box className="flex justify-between gap-6">
+          <Box className="mb-1 flex flex-col gap-4">
+            <TextField
+              size="small"
+              type="text"
+              className="w-full"
+              name="campaignTitle"
+              id="campaignTitle"
+              label="Campaign Title"
+              placeholder="Campaign Title"
+              autoComplete="campaignTitle"
+              required
+              inputProps={{ maxLength: 6 }}
+            />
+            <Autocomplete
+              className="w-full"
+              label="Select Sender"
+              onChange={handleSender}
+              value={sender}
+              size="small"
+              disablePortal
+              id="senderID"
+              options={senderArray}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Sender" />
+              )}
+              required
+            />
+            <Autocomplete
+              className="w-full"
+              label="Select Category"
+              onChange={handleCategory}
+              value={category}
+              size="small"
+              disablePortal
+              id="senderID"
+              options={categoryArray}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Category" />
+              )}
+              required
+            />
+
+            <TextField
+              size="small"
+              type="text"
+              className="w-full"
+              name="entityID"
+              id="entityID"
+              placeholder="Entity ID ( 10********053 )"
+              autoComplete="entityID"
+              required
+              InputProps={{
+                readOnly: true,
+              }}
+              disabled
+            />
+          </Box>
           <Box className="flex-[0.7]">
             <Box className="mb-6 child:w-full">
               <div className="flex  justify-between font-semibold text-slate-800">
@@ -228,9 +271,8 @@ function ComposeNormal({ setnewSenderData }) {
                 placeholder="Exact Message from Template"
                 className=" w-full rounded-md rounded-b-none border border-gray-300 p-2.5 text-gray-500 outline-none focus:border-2 focus:border-sky-600"
                 minRows="5"
-                disabled
+                disabled={isExactMsgTemplate}
                 required
-                readOnly
               />
               <Box>
                 <Box className="flex justify-between gap-2 border pl-1">
@@ -280,23 +322,60 @@ function ComposeNormal({ setnewSenderData }) {
                   </Box>
                 </Box>
               </Box>
+              {isAdvanceOrLargeCustom && (
+                <Box className="flex gap-4 pt-2">
+                  <FormControlLabel
+                    onChange={() => {
+                      setisExactMsgTemplate((prev) => !prev);
+                    }}
+                    control={<Checkbox />}
+                    label="Enable Text Editor"
+                  />
 
-              <FormControl className="py-2">
-                <RadioGroup defaultValue="now" name="radio-buttons-group">
-                  <Box className="pt-2">
-                    <FormControlLabel
-                      value="now"
-                      control={<Radio />}
-                      label="Now"
-                    />
-                    <FormControlLabel
-                      value="scheduled"
-                      control={<Radio />}
-                      label="Scheduled"
-                    />
-                  </Box>
-                </RadioGroup>
-              </FormControl>
+                  <Autocomplete
+                    // onChange={handleLanguage}
+                    // value={lang}
+                    className="w-full"
+                    size="small"
+                    disablePortal
+                    id="selectLanguage"
+                    options={languageArray}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Select Language" />
+                    )}
+                  />
+                </Box>
+              )}
+              <Box className="grid">
+                <FormControl className="py-2">
+                  <RadioGroup
+                    onChange={handleIsScheduled}
+                    defaultValue="now"
+                    name="radio-buttons-group"
+                  >
+                    <Box className="pt-2">
+                      <FormControlLabel
+                        value="now"
+                        control={<Radio />}
+                        label="Now"
+                      />
+                      <FormControlLabel
+                        value="scheduled"
+                        control={<Radio />}
+                        label="Scheduled"
+                      />
+                    </Box>
+                  </RadioGroup>
+                </FormControl>
+                <TextField
+                  size="small"
+                  className="w-fit"
+                  value={scheduledDateTime}
+                  readOnly
+                  disabled
+                />
+              </Box>
             </Box>
             <Button
               type="submit"
@@ -310,14 +389,21 @@ function ComposeNormal({ setnewSenderData }) {
             <span className="font-semibold">
               Template( Edit your message here. )
             </span>
-            <Box
+            {isScheduled && (
+              <DateAndTimePicker
+                currentTime={formattedTime}
+                handleDateTimeChange={handleDateTimeChange}
+              />
+            )}
+            <div
               id="output"
               ref={templateBox}
               className="mt-4 h-[65vh] w-full rounded-md  border border-gray-300 p-2 outline-none focus:border-2 focus:border-sky-600"
               required
+              contentEditable
             >
               Empty
-            </Box>
+            </div>
           </Box>
         </Box>
       </Box>

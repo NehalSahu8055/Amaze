@@ -22,7 +22,7 @@ function Apikeys() {
   const [apikeysRows, setapikeysRows] = useState(rows);
   return (
     <Box>
-      <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
+      <h2 className="pb-5 text-3xl font-semibold tracking-tight  text-slate-950">
         Manage API Keys
       </h2>
       <Box className="flex w-full justify-between gap-6 ">
