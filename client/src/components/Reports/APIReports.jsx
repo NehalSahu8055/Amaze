@@ -29,7 +29,7 @@ function APIReports() {
   ];
   return (
     <div className="relative">
-      <h2 className="pb-8 text-2xl font-semibold tracking-tight  text-slate-950">
+      <h2 className="pb-2 text-2xl font-semibold tracking-tight  text-slate-950">
         API SMS Details
       </h2>
       <DataTable rows={rows} columns={columns} />

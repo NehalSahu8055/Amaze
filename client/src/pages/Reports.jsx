@@ -16,7 +16,7 @@ function Reports() {
   };
   return (
     <Box>
-      <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
+      <h2 className="pb-2 text-3xl font-semibold tracking-tight  text-slate-950">
         Search SMS Details
       </h2>
       <TabContext value={value}>
@@ -40,13 +40,13 @@ function Reports() {
           </TabList>
         </Box>
 
-        <TabPanel value="1">
+        <TabPanel className="-mx-7 -my-5" value="1">
           <BulkReports />
         </TabPanel>
-        <TabPanel value="2">
+        <TabPanel className="-mx-7 -my-5" value="2">
           <APIReports />
         </TabPanel>
-        <TabPanel value="3">
+        <TabPanel className="-mx-7 -my-5" value="3">
           <SearchData />
         </TabPanel>
       </TabContext>

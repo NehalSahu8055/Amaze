@@ -18,7 +18,7 @@ function Compose() {
   };
   return (
     <Box>
-      <h2 className="pb-5 text-3xl font-semibold tracking-tight  text-slate-950">
+      <h2 className="pb-1 text-3xl font-semibold tracking-tight  text-slate-950">
         SMS Compose
       </h2>
       <TabContext value={value}>
@@ -52,19 +52,19 @@ function Compose() {
           </TabList>
         </Box>
 
-        <TabPanel value="1">
+        <TabPanel className="-mx-7 -my-8" value="1">
           <ComposeNormal />
         </TabPanel>
-        <TabPanel value="2">
+        <TabPanel className="-mx-7 -my-8" value="2">
           <ComposeUnicode />
         </TabPanel>
-        <TabPanel value="3">
+        <TabPanel className="-mx-7 -my-8" value="3">
           <ComposeCustom />
         </TabPanel>
-        <TabPanel value="4">
+        <TabPanel className="-mx-7 -my-8" value="4">
           <ComposeAdvance />
         </TabPanel>
-        <TabPanel value="5">
+        <TabPanel className="-mx-7 -my-8" value="5">
           <ComposeLargeFile />
         </TabPanel>
       </TabContext>

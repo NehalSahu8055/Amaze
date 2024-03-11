@@ -24,7 +24,7 @@ import TemplateModal from "./../Modal/TemplateModal";
 import DateAndTimePicker from "../Auxiliary/DateAndTimePicker";
 import getScheduleBaseTimeDate from "../../utils/getScheduleBaseTimeDate";
 
-function ComposeNormal({ setnewSenderData }) {
+function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
   const customNormalForm = useRef(null);
   const exactMsgTemplate = useRef(null);
   const templateBox = useRef(null);
@@ -38,6 +38,7 @@ function ComposeNormal({ setnewSenderData }) {
   const [isScheduled, setisScheduled] = useState(false);
   const [scheduledDateTime, setscheduledDateTime] = useState();
   const [isExactMsgTemplate, setisExactMsgTemplate] = useState(true);
+  const [lang, setlang] = useState("HINDI");
 
   const languageArray = [
     "AMHARIC",
@@ -63,7 +64,6 @@ function ComposeNormal({ setnewSenderData }) {
     "TIGRINYA",
     "URDU",
   ];
-  let isAdvanceOrLargeCustom = true;
   let inputTemp = "";
   let s = templateCellData;
   let ft = "";
@@ -323,8 +323,9 @@ function ComposeNormal({ setnewSenderData }) {
                 </Box>
               </Box>
               {isAdvanceOrLargeCustom && (
-                <Box className="flex gap-4 pt-2">
+                <Box className="flex gap-4 pt-4">
                   <FormControlLabel
+                    className="w-full"
                     onChange={() => {
                       setisExactMsgTemplate((prev) => !prev);
                     }}
@@ -332,19 +333,21 @@ function ComposeNormal({ setnewSenderData }) {
                     label="Enable Text Editor"
                   />
 
-                  <Autocomplete
-                    // onChange={handleLanguage}
-                    // value={lang}
-                    className="w-full"
-                    size="small"
-                    disablePortal
-                    id="selectLanguage"
-                    options={languageArray}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => (
-                      <TextField {...params} label="Select Language" />
-                    )}
-                  />
+                  {!isExactMsgTemplate && (
+                    <Autocomplete
+                      onChange={handleLanguage}
+                      value={lang}
+                      className="w-full"
+                      size="small"
+                      disablePortal
+                      id="selectLanguage"
+                      options={languageArray}
+                      sx={{ width: 300 }}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Select Language" />
+                      )}
+                    />
+                  )}
                 </Box>
               )}
               <Box className="grid">

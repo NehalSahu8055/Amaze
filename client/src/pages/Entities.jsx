@@ -50,7 +50,7 @@ function Entities() {
 
   return (
     <>
-      <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
+      <h2 className="pb-6 text-3xl font-semibold tracking-tight  text-slate-950">
         Manage Entities
       </h2>
       <Box className="flex justify-between gap-6">

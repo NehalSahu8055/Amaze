@@ -128,7 +128,7 @@ function AddTemplate({ settemplateRows }) {
     <form
       ref={templateForm}
       onSubmit={handletemplate}
-      className="grid h-fit w-full gap-4 rounded-md border border-slate-200 bg-white px-5 py-4 pt-4"
+      className="grid h-fit w-full gap-2 rounded-md border border-slate-200 bg-white px-5 py-4 pt-4"
       action=""
     >
       <h3 className="text-xl font-semibold">Add Template</h3>
@@ -227,7 +227,7 @@ function AddTemplate({ settemplateRows }) {
         minRows="6"
         required
       />
-      <div className="-mt-3 ml-auto space-x-2 font-semibold">
+      <div className="-mt-2 ml-auto space-x-2 font-semibold">
         <span className=" text-green-700">{message.length} Characters</span>
         <span className="text-red-600">{smsCount} SMS</span>
       </div>

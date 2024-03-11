@@ -32,6 +32,7 @@ function ComposeCustom() {
   const mobNoArray = ["9011111111", "9013231111", "901311111"];
   const [open, setOpen] = useState(false);
   const [templateCellData, settemplateCellData] = useState("");
+  const [lang, setlang] = useState("HINDI");
 
   let inputTemp = "";
   let s = templateCellData;

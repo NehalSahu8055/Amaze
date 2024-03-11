@@ -15,8 +15,8 @@ function Profile() {
     setValue(newValue);
   };
   return (
-    <Box className="max-w-[32.2rem]">
-      <h2 className="pb-8 text-3xl font-semibold tracking-tight  text-slate-950">
+    <Box>
+      <h2 className="pb-2 text-3xl font-semibold tracking-tight  text-slate-950">
         User Profile
       </h2>
       <TabContext value={value}>
