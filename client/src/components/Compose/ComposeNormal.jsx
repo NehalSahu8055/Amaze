@@ -39,6 +39,7 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
   const [scheduledDateTime, setscheduledDateTime] = useState();
   const [isExactMsgTemplate, setisExactMsgTemplate] = useState(true);
   const [lang, setlang] = useState("HINDI");
+  const editTemplate = useRef(null);
 
   const languageArray = [
     "AMHARIC",
@@ -388,7 +389,7 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
             </Button>
           </Box>
 
-          <Box className="flex-[0.3]">
+          <Box ref={editTemplate} className="flex-[0.3]">
             <span className="font-semibold">
               Template( Edit your message here. )
             </span>
@@ -398,6 +399,7 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
                 handleDateTimeChange={handleDateTimeChange}
               />
             )}
+
             <div
               id="output"
               ref={templateBox}

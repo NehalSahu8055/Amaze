@@ -10,7 +10,7 @@ import {
   TextField,
   TextareaAutosize,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import LinkIcon from "@mui/icons-material/Link";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
@@ -20,6 +20,7 @@ import DateAndTimePicker from "../Auxiliary/DateAndTimePicker";
 import getScheduleBaseTimeDate from "../../utils/getScheduleBaseTimeDate";
 import getCurrentDateTime from "../../utils/getCurrentDateTime";
 import TemplateModal from "../Modal/TemplateModal";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 function ComposeCustom() {
   const [sender, setsender] = useState();
@@ -27,17 +28,24 @@ function ComposeCustom() {
   const [mobNo, setmobNo] = useState();
   const [isScheduled, setisScheduled] = useState(false);
   const [scheduledDateTime, setscheduledDateTime] = useState();
-  const senderArray = ["", "e128937197491824n"];
-  const categoryArray = ["Transaction", "Service", "Promotion"];
-  const mobNoArray = ["9011111111", "9013231111", "901311111"];
   const [open, setOpen] = useState(false);
   const [templateCellData, settemplateCellData] = useState("");
   const [lang, setlang] = useState("HINDI");
+  const [firstRowData, setFirstRowData] = useState([]);
+  const [colListSelectedItem, setcolListSelectedItem] = useState("");
+  const [dataFromTemplate, setdataFromTemplate] = useState("");
+  const [colClickCount, setcolClickCount] = useState(0);
+  const templateBox = useRef(null);
+
+  const senderArray = ["", "e128937197491824n"];
+  const categoryArray = ["Transaction", "Service", "Promotion"];
+  const mobNoArray = ["9011111111", "9013231111", "901311111"];
 
   let inputTemp = "";
   let s = templateCellData;
   let ft = "";
   let finalText = "";
+  const formattedTime = getScheduleBaseTimeDate();
 
   const handleCategory = (e, newValue) => {
     setcategory(newValue);
@@ -68,44 +76,76 @@ function ComposeCustom() {
     params.field == "template" && settemplateCellData(params.value);
     handleClose();
   };
+  useEffect(() => {
+    if (colListSelectedItem !== "") {
+      const inputId = `ti_${colClickCount}`;
+      const inputElement = document.getElementById(inputId);
+      if (inputElement) {
+        inputElement.value = colListSelectedItem;
+      }
+    }
+  }, [colListSelectedItem, colClickCount]);
 
-  const formattedTime = getScheduleBaseTimeDate();
+  useEffect(() => {
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (let mutation of mutationsList) {
+        if (
+          mutation.type === "childList" ||
+          mutation.type === "characterData"
+        ) {
+          const content = templateBox.current.textContent.trim();
+          setdataFromTemplate(content);
 
-  // useEffect(() => {
-  //   const outputt = document.querySelector("#output");
-  //   var count = 1;
-  //   let arr1 = s.split("{#var#}");
+          break;
+        }
+      }
+    });
 
-  //   for (let i = 0; i < arr1.length - 1; i++) {
-  //     inputTemp +=
-  //       arr1[i] +
-  //       `<input
-  //       class="bg-yellow-100 px-2 outline-none mb-2 border-red-200 border" type="text" id="ti_${count}" name="ti">`;
-  //     finalText += arr1[i] + "~ti_" + count + "~";
-  //     count++;
-  //   }
-  //   inputTemp += arr1[arr1.length - 1];
-  //   finalText += arr1[arr1.length - 1];
-  //   if (arr1[arr1.length - 1] == "") {
-  //     // inputTemp += `<input placeholder="Empty"  class="px-2 outline-none bg-yellow-100 border-red-300 border"  type="text" id="templateInput${count++}">`;
-  //     finalText += "~ti_" + count + "~";
-  //   }
+    observer.observe(templateBox.current, {
+      subtree: true,
+      characterData: true,
+      childList: true,
+    });
 
-  //   outputt.innerHTML = inputTemp;
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+  useEffect(() => {
+    const outputt = document.querySelector("#output2");
+    var count = 1;
+    let arr1 = s.split("{#var#}");
 
-  //   var id = 1;
-  //   document.querySelectorAll("input").forEach((input) => {
-  //     input.addEventListener("blur", function (e) {
-  //       var inputValue = e.target.value;
-  //       ft = finalText;
-  //       document.getElementsByName("ti").forEach((input) => {
-  //         ft = ft.replace("~" + input.id + "~", input.value);
-  //       });
-  //       console.log(ft);
-  //       setdataFromTemplate(ft);
-  //     });
-  //   });
-  // }, [s, finalText]);
+    for (let i = 0; i < arr1.length - 1; i++) {
+      inputTemp +=
+        arr1[i] +
+        `<input
+        class="bg-yellow-100 px-2 outline-none mb-2 border-red-200 border" type="text" id="ti_${count}" name="ti">`;
+      finalText += arr1[i] + "~ti_" + count + "~";
+      count++;
+    }
+    inputTemp += arr1[arr1.length - 1];
+    finalText += arr1[arr1.length - 1];
+    if (arr1[arr1.length - 1] == "") {
+      // inputTemp += `<input placeholder="Empty"  class="px-2 outline-none bg-yellow-100 border-red-300 border"  type="text" id="templateInput${count++}">`;
+      finalText += "~ti_" + count + "~";
+    }
+
+    outputt.innerHTML = inputTemp;
+
+    var id = 1;
+    document.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("blur", function (e) {
+        var inputValue = e.target.value;
+        ft = finalText;
+        document.getElementsByName("ti").forEach((input) => {
+          ft = ft.replace("~" + input.id + "~", input.value);
+        });
+        console.log(ft);
+        setdataFromTemplate(ft);
+      });
+    });
+  }, [s, finalText]);
 
   return (
     <form
@@ -209,16 +249,41 @@ function ComposeCustom() {
                   Get Sample File
                 </Button>
               </div>
-              <FilePicker />
+              <FilePicker setFirstRowData={setFirstRowData} />
             </Box>
             <Box className="grid">
               <span className="font-semibold text-slate-700">Column List</span>
-              <TextareaAutosize
-                placeholder=""
-                className="mt-1 rounded-md border border-gray-300 p-2.5 outline-none focus:border-2 focus:border-sky-600"
-                minRows="4"
-                required
-              />
+              <Box className="mt-1 h-[6rem] overflow-y-scroll rounded-t-md border border-gray-300 p-2.5 outline-none focus:border-2 focus:border-sky-600">
+                <ul className="flex flex-col">
+                  {firstRowData.map((cellData, index) => (
+                    <li className="w-full">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (dataFromTemplate.length != 0) {
+                            setcolListSelectedItem(cellData);
+                            setcolClickCount((prev) => ++prev);
+
+                            document.getElementById(
+                              `ti_${colClickCount}`,
+                            ).value = colListSelectedItem;
+                          }
+                        }}
+                        className="group flex w-full  justify-between hover:bg-blue-500 hover:text-white"
+                      >
+                        <div
+                          className="w-full text-left "
+                          size="small"
+                          key={index}
+                        >
+                          {cellData}
+                        </div>
+                        <KeyboardDoubleArrowRightIcon className="fill-slate-600 group-hover:fill-white" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </Box>
             </Box>
             <Box className="flex gap-2">
               <Box className=" flex w-full  justify-between gap-2 border px-2 pl-1">
@@ -279,7 +344,7 @@ function ComposeCustom() {
       </Box>
       <Box>
         <Box className="flex justify-between gap-4">
-          <Box className="flex-[0.5]">
+          <Box className="w-1/2 flex-[0.5]">
             <TextareaAutosize
               // ref={exactMsgTemplate}
               // value={dataFromTemplate.startsWith("~") ? "" : dataFromTemplate}
@@ -321,17 +386,19 @@ function ComposeCustom() {
             </Box>
           </Box>
 
-          <Box className="flex-[0.5]">
-            <TextareaAutosize
-              // ref={exactMsgTemplate}
-              // value={dataFromTemplate.startsWith("~") ? "" : dataFromTemplate}
-              placeholder="Exact Message from Template"
-              className=" w-full rounded-md rounded-b-none border border-gray-300 p-2.5 text-gray-500 outline-none focus:border-2 focus:border-sky-600"
-              minRows="5"
-              disabled
-              required
-              readOnly
-            />
+          <Box className="w-1/2 flex-[0.5]">
+            <div
+              id="output2"
+              onInput={(e) => {
+                setdataFromTemplate(templateBox.current.textContent.trim());
+              }}
+              ref={templateBox}
+              // placeholder="Exact Message from Template"
+              className=" h-1/2 w-full overflow-y-scroll rounded-md rounded-b-none border border-gray-300 p-2.5 text-gray-500 outline-none "
+              contentEditable
+            >
+              Empty
+            </div>
             <Box className="flex justify-between gap-2 border pl-1">
               <Box className="flex gap-2">
                 <Button
@@ -339,7 +406,7 @@ function ComposeCustom() {
                   role={undefined}
                   tabIndex={-1}
                   endIcon={<LinkIcon />}
-                  className="my-1 bg-slate-300 text-slate-900 hover:bg-slate-300/80"
+                  className="my-1  bg-slate-300 text-slate-900 hover:bg-slate-300/80"
                 >
                   URL
                 </Button>
@@ -363,7 +430,7 @@ function ComposeCustom() {
                 <Box className="flex items-center border-r px-2 ">
                   <span>Aa</span>
                   <span className="pl-2 text-sky-600">
-                    {/* {dataFromTemplate.length}&nbsp; */}
+                    {dataFromTemplate.length}&nbsp;
                   </span>
                   /1000
                 </Box>
