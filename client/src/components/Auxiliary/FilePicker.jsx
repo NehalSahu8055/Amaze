@@ -6,7 +6,7 @@ const FilePicker = ({ setFirstRowData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
-    setSelectedFile(event.target.files[0]);
+    setSelectedFile(e.target.files[0]);
 
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -32,7 +32,7 @@ const FilePicker = ({ setFirstRowData }) => {
         onChange={handleFileChange}
       />
       <label htmlFor="file-input">
-        <Button variant="contained" component="span">
+        <Button className="text-[0.8rem]" variant="contained" component="span">
           Choose Exl / Txt File
         </Button>
       </label>

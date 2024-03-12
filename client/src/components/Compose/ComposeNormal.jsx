@@ -24,7 +24,11 @@ import TemplateModal from "./../Modal/TemplateModal";
 import DateAndTimePicker from "../Auxiliary/DateAndTimePicker";
 import getScheduleBaseTimeDate from "../../utils/getScheduleBaseTimeDate";
 
-function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
+function ComposeNormal({
+  isAdvanceOrLargeCustom,
+  setnewSenderData,
+  setFormData,
+}) {
   const customNormalForm = useRef(null);
   const exactMsgTemplate = useRef(null);
   const templateBox = useRef(null);
@@ -39,6 +43,10 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
   const [scheduledDateTime, setscheduledDateTime] = useState();
   const [isExactMsgTemplate, setisExactMsgTemplate] = useState(true);
   const [lang, setlang] = useState("HINDI");
+  const [campaignTitle, setcampaignTitle] = useState();
+  const [entityID, setentityID] = useState();
+  const [phonebook, setphonebook] = useState();
+
   const editTemplate = useRef(null);
 
   const languageArray = [
@@ -76,24 +84,21 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
 
   const handleCustomNormal = (e) => {
     e.preventDefault();
-    const formData = new FormData(customNormalForm.current);
-    const entityId = formData.get("entityId");
-    const senderName = formData.get("senderName");
 
-    // setnewSenderData({ id: currentID,entityId:entityId, approved });
-    // const newSenderData = {
-    //   id: currentID,
-    //   sender: senderName,
-    //   sender: sender,
-    //   approvedOn: getCurrentDate(),
-    //   status: "APPROVED",
-    //   action: "🗑️",
-    // };
-    // setnewSenderData((prev) => {
-    //   return [...prev, newSenderData];
-    // });
-
-    setcurrentID((prev) => ++prev);
+    const data = {
+      campaignTitle: campaignTitle,
+      sender: sender,
+      category: category,
+      entityID: entityID,
+      isScheduled: isScheduled,
+      scheduledDateTime: scheduledDateTime,
+      phonebook: phonebook,
+      dataFromTemplate: dataFromTemplate.startsWith("~")
+        ? ""
+        : dataFromTemplate,
+    };
+    setFormData(data);
+    console.log(data);
   };
   const handleCellDoubleClick = (params, event) => {
     console.log("Double clicked cell info:", params);
@@ -105,6 +110,9 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
   };
   const handleCategory = (e, newValue) => {
     setcategory(newValue);
+  };
+  const handleentityID = (e, newValue) => {
+    setentityID(newValue);
   };
   const handleClickOpen = () => {
     setOpen(true);
@@ -124,7 +132,12 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
   const handleLanguage = (e, newValue) => {
     setlang(newValue);
   };
-
+  const handlephonebook = (e) => {
+    setphonebook(e.currentTarget.value);
+  };
+  const handleCampaignTitle = (e) => {
+    setcampaignTitle(e.currentTarget.value);
+  };
   useEffect(() => {
     const outputt = document.querySelector("#output");
     var count = 1;
@@ -165,7 +178,7 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
     <form
       ref={customNormalForm}
       onSubmit={handleCustomNormal}
-      className="flex h-fit w-full gap-6 rounded-md  border border-slate-200 bg-white p-6"
+      className="flex h-fit w-full gap-6 rounded-md  border border-slate-200 bg-white p-6 py-4"
       action=""
     >
       {open && (
@@ -175,14 +188,14 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
           handleCellDoubleClick={handleCellDoubleClick}
         />
       )}
-
       <Box className="flex w-full flex-col gap-4">
-        <Box className="flex justify-between gap-6">
-          <Box className="mb-1 flex flex-col gap-4">
+        <Box className="flex justify-between gap-4">
+          <Box className="mb-1 flex flex-col gap-2">
             <TextField
               size="small"
               type="text"
-              className="w-full"
+              onChange={handleCampaignTitle}
+              className="child2:child:py-0"
               name="campaignTitle"
               id="campaignTitle"
               label="Campaign Title"
@@ -221,10 +234,10 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
               )}
               required
             />
-
             <TextField
               size="small"
               type="text"
+              onChange={handleentityID}
               className="w-full"
               name="entityID"
               id="entityID"
@@ -236,9 +249,38 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
               }}
               disabled
             />
+            <Box className="flex items-center gap-2">
+              <FormControl>
+                <RadioGroup
+                  onChange={handleIsScheduled}
+                  defaultValue="now"
+                  name="radio-buttons-group"
+                >
+                  <Box>
+                    <FormControlLabel
+                      value="now"
+                      control={<Radio />}
+                      label="Now"
+                    />
+                    <FormControlLabel
+                      value="scheduled"
+                      control={<Radio />}
+                      label="Scheduled"
+                    />
+                  </Box>
+                </RadioGroup>
+              </FormControl>
+              <TextField
+                // size="small"
+                className=" w-fit child:child:py-1"
+                value={scheduledDateTime}
+                readOnly
+                disabled
+              />
+            </Box>
           </Box>
           <Box className="flex-[0.7]">
-            <Box className="mb-6 child:w-full">
+            <Box className="mb-1 child:w-full">
               <div className="flex  justify-between font-semibold text-slate-800">
                 <span>Phonebook</span>
                 <Button className="uppercase text-sky-500">
@@ -246,12 +288,13 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
                 </Button>
               </div>
               <TextareaAutosize
+                onChange={handlephonebook}
                 placeholder="Type or paste numbers here, one per line e.g  &#10;98XXXXXXXX  &#10;94XXXXXXXX"
-                className="mt-1 rounded-md border border-gray-300 p-2.5 outline-none focus:border-2 focus:border-sky-600"
+                className="mt-1 rounded-md border border-gray-300 p-2.5 outline-none focus:border focus:border-sky-600"
                 minRows="4"
                 required
               />
-              <Box className=" mt-1 flex justify-between">
+              <Box className=" flex justify-between">
                 <Box>
                   <FormControlLabel
                     control={<Checkbox />}
@@ -323,75 +366,12 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
                   </Box>
                 </Box>
               </Box>
-              {isAdvanceOrLargeCustom && (
-                <Box className="flex gap-4 pt-4">
-                  <FormControlLabel
-                    className="w-full"
-                    onChange={() => {
-                      setisExactMsgTemplate((prev) => !prev);
-                    }}
-                    control={<Checkbox />}
-                    label="Enable Text Editor"
-                  />
-
-                  {!isExactMsgTemplate && (
-                    <Autocomplete
-                      onChange={handleLanguage}
-                      value={lang}
-                      className="w-full"
-                      size="small"
-                      disablePortal
-                      id="selectLanguage"
-                      options={languageArray}
-                      sx={{ width: 300 }}
-                      renderInput={(params) => (
-                        <TextField {...params} label="Select Language" />
-                      )}
-                    />
-                  )}
-                </Box>
-              )}
-              <Box className="grid">
-                <FormControl className="py-2">
-                  <RadioGroup
-                    onChange={handleIsScheduled}
-                    defaultValue="now"
-                    name="radio-buttons-group"
-                  >
-                    <Box className="pt-2">
-                      <FormControlLabel
-                        value="now"
-                        control={<Radio />}
-                        label="Now"
-                      />
-                      <FormControlLabel
-                        value="scheduled"
-                        control={<Radio />}
-                        label="Scheduled"
-                      />
-                    </Box>
-                  </RadioGroup>
-                </FormControl>
-                <TextField
-                  size="small"
-                  className="w-fit"
-                  value={scheduledDateTime}
-                  readOnly
-                  disabled
-                />
-              </Box>
             </Box>
-            <Button
-              type="submit"
-              className="mt-2 w-fit  bg-sky-700 px-4 capitalize text-white hover:bg-sky-700/90"
-            >
-              Send Now
-            </Button>
           </Box>
 
           <Box ref={editTemplate} className="flex-[0.3]">
             <span className="font-semibold">
-              Template( Edit your message here. )
+              Template <br /> ( Edit your message here. )
             </span>
             {isScheduled && (
               <DateAndTimePicker
@@ -403,12 +383,18 @@ function ComposeNormal({ isAdvanceOrLargeCustom, setnewSenderData }) {
             <div
               id="output"
               ref={templateBox}
-              className="mt-4 h-[65vh] w-full rounded-md  border border-gray-300 p-2 outline-none focus:border-2 focus:border-sky-600"
+              className="mt-2.5 h-[46vh] w-full rounded-md  border border-gray-300 p-2 outline-none focus:border focus:border-sky-600"
               required
               contentEditable
             >
               Empty
             </div>
+            <Button
+              type="submit"
+              className="mt-2 w-fit  bg-sky-700 px-4 capitalize text-white hover:bg-sky-700/90"
+            >
+              Send Now
+            </Button>
           </Box>
         </Box>
       </Box>

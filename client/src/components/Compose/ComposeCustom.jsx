@@ -81,7 +81,7 @@ function ComposeCustom() {
       const inputId = `ti_${colClickCount}`;
       const inputElement = document.getElementById(inputId);
       if (inputElement) {
-        inputElement.value = colListSelectedItem;
+        inputElement.value = "##" + colListSelectedItem + "##";
       }
     }
   }, [colListSelectedItem, colClickCount]);
@@ -151,7 +151,7 @@ function ComposeCustom() {
     <form
       // ref={customNormalForm}
       // onSubmit={handleCustomNormal}
-      className="flex h-fit w-full flex-col gap-6 rounded-md  border border-slate-200 bg-white p-6 pt-2"
+      className="flex h-fit w-full flex-col gap-2 rounded-md  border border-slate-200 bg-white p-6 pt-2"
       action=""
     >
       {open && (
@@ -161,9 +161,9 @@ function ComposeCustom() {
           handleCellDoubleClick={handleCellDoubleClick}
         />
       )}
-      <FormControl className="py-2">
+      <FormControl>
         <RadioGroup defaultValue="dynamicSMS" name="radio-buttons-group">
-          <Box className="pt-2">
+          <Box>
             <FormControlLabel
               value="dynamicSMS"
               control={<Radio />}
@@ -177,7 +177,7 @@ function ComposeCustom() {
           </Box>
         </RadioGroup>
       </FormControl>
-      <Box className="mb-1 flex flex-1 justify-between gap-4">
+      <Box className="flex flex-1 justify-between gap-2">
         <Autocomplete
           className="w-full"
           label="Select Sender"
@@ -237,23 +237,24 @@ function ComposeCustom() {
         />
       </Box>
       <Box className="flex">
-        <Box className="flex w-full gap-4">
+        <Box className="flex w-full gap-2">
           <Box className="flex-[0.5]">
-            <Box className="mb-6 child:w-full">
+            <Box className="child:w-full">
               <div className="flex  justify-between font-semibold text-slate-800">
                 <span>Phonebook</span>
-                <Button
+                {/* <Button
                   startIcon={<FileDownloadIcon />}
                   className="align-center flex uppercase text-sky-500"
                 >
                   Get Sample File
-                </Button>
+                </Button> */}
+                <FilePicker setFirstRowData={setFirstRowData} />
               </div>
-              <FilePicker setFirstRowData={setFirstRowData} />
+              {/* <FilePicker setFirstRowData={setFirstRowData} /> */}
             </Box>
             <Box className="grid">
               <span className="font-semibold text-slate-700">Column List</span>
-              <Box className="mt-1 h-[6rem] overflow-y-scroll rounded-t-md border border-gray-300 p-2.5 outline-none focus:border-2 focus:border-sky-600">
+              <Box className="mt-1 h-[6rem] overflow-y-scroll rounded-t-md border border-gray-300 p-2.5 outline-none focus:border focus:border-sky-600">
                 <ul className="flex flex-col">
                   {firstRowData.map((cellData, index) => (
                     <li className="w-full">
@@ -330,7 +331,7 @@ function ComposeCustom() {
 
                 <TextareaAutosize
                   placeholder=""
-                  className="mt-1 rounded-md border border-gray-300 p-2.5 outline-none focus:border-2 focus:border-sky-600"
+                  className="mt-1 rounded-md border border-gray-300 p-2.5 outline-none focus:border focus:border-sky-600"
                   minRows="4"
                   required
                 />
@@ -343,47 +344,18 @@ function ComposeCustom() {
         </Box>
       </Box>
       <Box>
-        <Box className="flex justify-between gap-4">
+        <Box className="flex justify-between gap-2">
           <Box className="w-1/2 flex-[0.5]">
             <TextareaAutosize
               // ref={exactMsgTemplate}
               // value={dataFromTemplate.startsWith("~") ? "" : dataFromTemplate}
               // placeholder="Exact Message from Template"
-              className=" w-full rounded-md rounded-b-none border border-gray-300 p-2.5 text-gray-500 outline-none focus:border-2 focus:border-sky-600"
+              className=" w-full rounded-md rounded-b-none border border-gray-300 p-2.5 text-gray-500 outline-none focus:border focus:border-sky-600"
               minRows="5"
               disabled
               required
               readOnly
             />
-            <Box className="grid">
-              <FormControl className="py-2">
-                <RadioGroup
-                  onChange={handleIsScheduled}
-                  defaultValue="now"
-                  name="radio-buttons-group"
-                >
-                  <Box className="pt-2">
-                    <FormControlLabel
-                      value="now"
-                      control={<Radio />}
-                      label="Now"
-                    />
-                    <FormControlLabel
-                      value="scheduled"
-                      control={<Radio />}
-                      label="Scheduled"
-                    />
-                  </Box>
-                </RadioGroup>
-              </FormControl>
-              <TextField
-                value={scheduledDateTime}
-                size="small"
-                className="w-fit"
-                readOnly
-                disabled
-              />
-            </Box>
           </Box>
 
           <Box className="w-1/2 flex-[0.5]">
@@ -394,7 +366,7 @@ function ComposeCustom() {
               }}
               ref={templateBox}
               // placeholder="Exact Message from Template"
-              className=" h-1/2 w-full overflow-y-scroll rounded-md rounded-b-none border border-gray-300 p-2.5 text-gray-500 outline-none "
+              className=" h-[60%] w-full overflow-y-scroll rounded-md rounded-b-none border border-gray-300 p-2.5 text-gray-500 outline-none "
               contentEditable
             >
               Empty
@@ -445,13 +417,46 @@ function ComposeCustom() {
             </Box>
           </Box>
         </Box>
+        <Box className="flex justify-between">
+          <Box className="flex w-1/2 items-center gap-2">
+            <FormControl>
+              <RadioGroup
+                onChange={handleIsScheduled}
+                defaultValue="now"
+                name="radio-buttons-group"
+              >
+                <Box>
+                  <FormControlLabel
+                    value="now"
+                    control={<Radio />}
+                    label="Now"
+                  />
+                  <FormControlLabel
+                    value="scheduled"
+                    control={<Radio />}
+                    label="Scheduled"
+                  />
+                </Box>
+              </RadioGroup>
+            </FormControl>
+            <TextField
+              // size="small"
+              className=" w-fit child:child:py-1"
+              value={scheduledDateTime}
+              readOnly
+              disabled
+            />
+          </Box>
+          <Box className="flex w-1/2">
+            <Button
+              type="submit"
+              className="mt-2 w-fit self-end  bg-sky-700 px-4 capitalize text-white hover:bg-sky-700/90"
+            >
+              Send Now
+            </Button>
+          </Box>
+        </Box>
       </Box>
-      <Button
-        type="submit"
-        className="mt-2 w-fit self-end  bg-sky-700 px-4 capitalize text-white hover:bg-sky-700/90"
-      >
-        Send Now
-      </Button>
     </form>
   );
 }

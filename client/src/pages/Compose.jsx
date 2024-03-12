@@ -12,6 +12,11 @@ import ComposeAdvance from "./../components/Compose/ComposeAdvance";
 
 function Compose() {
   const [value, setValue] = useState("1");
+  const [composeNormalData, setcomposeNormalData] = useState();
+  const [composeUnicode, setcomposeUnicode] = useState();
+  const [composeCustom, setcomposeCustom] = useState();
+  const [composeAdvance, setcomposeAdvance] = useState();
+  const [composeLargeFiles, setcomposeLargeFiles] = useState();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -53,19 +58,19 @@ function Compose() {
         </Box>
 
         <TabPanel className="-mx-7 -my-8" value="1">
-          <ComposeNormal />
+          <ComposeNormal setFormData={setcomposeNormalData} />
         </TabPanel>
         <TabPanel className="-mx-7 -my-8" value="2">
-          <ComposeUnicode />
+          <ComposeUnicode setFormData={setcomposeUnicode} />
         </TabPanel>
         <TabPanel className="-mx-7 -my-8" value="3">
-          <ComposeCustom />
+          <ComposeCustom setFormData={setcomposeCustom} />
         </TabPanel>
         <TabPanel className="-mx-7 -my-8" value="4">
-          <ComposeAdvance />
+          <ComposeAdvance setFormData={setcomposeAdvance} />
         </TabPanel>
         <TabPanel className="-mx-7 -my-8" value="5">
-          <ComposeLargeFile />
+          <ComposeLargeFile setFormData={setcomposeLargeFiles} />
         </TabPanel>
       </TabContext>
     </Box>
