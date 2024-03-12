@@ -32,8 +32,6 @@ function ComposeNormal({
   const customNormalForm = useRef(null);
   const exactMsgTemplate = useRef(null);
   const templateBox = useRef(null);
-  const placeholdersInput = useRef(null);
-  const [currentID, setcurrentID] = useState(1);
   const [sender, setsender] = useState();
   const [category, setcategory] = useState();
   const [open, setOpen] = useState(false);
@@ -42,37 +40,12 @@ function ComposeNormal({
   const [isScheduled, setisScheduled] = useState(false);
   const [scheduledDateTime, setscheduledDateTime] = useState();
   const [isExactMsgTemplate, setisExactMsgTemplate] = useState(true);
-  const [lang, setlang] = useState("HINDI");
   const [campaignTitle, setcampaignTitle] = useState();
   const [entityID, setentityID] = useState();
-  const [phonebook, setphonebook] = useState();
+  let [phonebook, setphonebook] = useState();
 
   const editTemplate = useRef(null);
 
-  const languageArray = [
-    "AMHARIC",
-    "ARABIC",
-    "BENGALI",
-    "CHINESE",
-    "GREEK",
-    "GUJARATI",
-    "HINDI",
-    "KANNADA",
-    "MALAYALAM",
-    "MARATHI",
-    "NEPALI",
-    "ORIYA",
-    "PERSIAN",
-    "PUNJABI",
-    "RUSSIAN",
-    "SANSKRIT",
-    "SERBIAN",
-    "SINHALESE",
-    "TAMIL",
-    "TELUGU",
-    "TIGRINYA",
-    "URDU",
-  ];
   let inputTemp = "";
   let s = templateCellData;
   let ft = "";
@@ -129,15 +102,45 @@ function ComposeNormal({
     setscheduledDateTime(scheduledDateTime);
     console.log(scheduledDateTime);
   };
-  const handleLanguage = (e, newValue) => {
-    setlang(newValue);
-  };
+
   const handlephonebook = (e) => {
-    setphonebook(e.currentTarget.value);
+    let input = e.target.value;
+
+    // note: 1 lakh max entry in phonebook
+    if (input.length > 100000) {
+      input = input.slice(0, 100000);
+    }
+    setphonebook(input);
+  };
+  const handleRefinePhonebook = () => {
+    handleRemoveDuplicate();
+    handleInvalidMobNo();
   };
   const handleCampaignTitle = (e) => {
     setcampaignTitle(e.currentTarget.value);
   };
+  const handleRemoveDuplicate = () => {
+    console.log(phonebook);
+    let extractMobNo = phonebook.split("\n");
+    let phonebookArr = extractMobNo.map((item) => item.trim());
+    let uniqueMobNo = new Set(phonebookArr);
+    console.log("uniqueMobNo", uniqueMobNo);
+    phonebook = [...uniqueMobNo].join("\n");
+    setphonebook(phonebook);
+  };
+  const handleInvalidMobNo = () => {
+    let validPhonebook = phonebook
+      .split("\n")
+      .map((item) => item.trim())
+      .filter((item) => item.length === 10);
+    console.log("handleInvalidMobNo", validPhonebook);
+    phonebook = [...validPhonebook].join("\n");
+
+    setphonebook(phonebook);
+
+    return validPhonebook;
+  };
+
   useEffect(() => {
     const outputt = document.querySelector("#output");
     var count = 1;
@@ -168,7 +171,6 @@ function ComposeNormal({
         document.getElementsByName("ti").forEach((input) => {
           ft = ft.replace("~" + input.id + "~", input.value);
         });
-        console.log(ft);
         setdataFromTemplate(ft);
       });
     });
@@ -288,7 +290,12 @@ function ComposeNormal({
                 </Button>
               </div>
               <TextareaAutosize
+                value={phonebook}
                 onChange={handlephonebook}
+                onBlur={() => {
+                  handleInvalidMobNo();
+                  handleRemoveDuplicate();
+                }}
                 placeholder="Type or paste numbers here, one per line e.g  &#10;98XXXXXXXX  &#10;94XXXXXXXX"
                 className="mt-1 rounded-md border border-gray-300 p-2.5 outline-none focus:border focus:border-sky-600"
                 minRows="4"
@@ -298,10 +305,12 @@ function ComposeNormal({
               <Box className=" flex justify-between">
                 <Box>
                   <FormControlLabel
+                    onSelect={handleRemoveDuplicate}
                     control={<Checkbox />}
                     label="Remove Duplicate"
                   />
                   <FormControlLabel
+                    // onChange={handleInvalidMobNo}
                     control={<Checkbox />}
                     label="Remove Invalid"
                   />
