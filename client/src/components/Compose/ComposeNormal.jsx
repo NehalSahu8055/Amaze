@@ -43,6 +43,8 @@ function ComposeNormal({
   const [campaignTitle, setcampaignTitle] = useState();
   const [entityID, setentityID] = useState();
   let [phonebook, setphonebook] = useState();
+  const [isInvalidChecked, setisInvalidChecked] = useState(false);
+  const [isDuplicateChecked, setisDuplicateChecked] = useState(false);
 
   const editTemplate = useRef(null);
 
@@ -141,6 +143,14 @@ function ComposeNormal({
     return validPhonebook;
   };
 
+  const handleDuplicateChecked = () => {
+    setisDuplicateChecked((prev) => !prev);
+    // handleRemoveDuplicate();
+  };
+  const handleInvalidChecked = () => {
+    setisInvalidChecked((prev) => !prev);
+    // handleInvalidMobNo();
+  };
   useEffect(() => {
     const outputt = document.querySelector("#output");
     var count = 1;
@@ -293,24 +303,23 @@ function ComposeNormal({
                 value={phonebook}
                 onChange={handlephonebook}
                 onBlur={() => {
-                  handleInvalidMobNo();
-                  handleRemoveDuplicate();
+                  isInvalidChecked && handleInvalidMobNo();
+                  isDuplicateChecked && handleRemoveDuplicate();
                 }}
                 placeholder="Type or paste numbers here, one per line e.g  &#10;98XXXXXXXX  &#10;94XXXXXXXX"
                 className="mt-1 rounded-md border border-gray-300 p-2.5 outline-none focus:border focus:border-sky-600"
                 minRows="4"
-                inputProps={{ maxLength: 10 }}
                 required
               />
               <Box className=" flex justify-between">
                 <Box>
                   <FormControlLabel
-                    onSelect={handleRemoveDuplicate}
+                    onChange={handleDuplicateChecked}
                     control={<Checkbox />}
                     label="Remove Duplicate"
                   />
                   <FormControlLabel
-                    // onChange={handleInvalidMobNo}
+                    onChange={handleInvalidChecked}
                     control={<Checkbox />}
                     label="Remove Invalid"
                   />

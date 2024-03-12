@@ -22,7 +22,7 @@ import getCurrentDateTime from "../../utils/getCurrentDateTime";
 import TemplateModal from "../Modal/TemplateModal";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
-function ComposeCustom() {
+function ComposeCustom({ setFormData }) {
   const [sender, setsender] = useState();
   const [category, setcategory] = useState();
   const [mobNo, setmobNo] = useState();
@@ -35,6 +35,10 @@ function ComposeCustom() {
   const [colListSelectedItem, setcolListSelectedItem] = useState("");
   const [dataFromTemplate, setdataFromTemplate] = useState("");
   const [colClickCount, setcolClickCount] = useState(0);
+  const [isExactMsgTemplate, setisExactMsgTemplate] = useState(true);
+  const [campaignTitle, setcampaignTitle] = useState();
+  const [smsType, setSmsType] = useState();
+  const [entityID, setentityID] = useState();
   const templateBox = useRef(null);
 
   const senderArray = ["", "e128937197491824n"];
@@ -56,6 +60,12 @@ function ComposeCustom() {
   const handleSender = (e, newValue) => {
     setsender(newValue);
   };
+  const handleCampaignTitle = (e) => {
+    setcampaignTitle(e.currentTarget.value);
+  };
+  const handleentityID = (e, newValue) => {
+    setentityID(newValue);
+  };
   const handleIsScheduled = (e, newValue) => {
     setisScheduled((prev) => !prev);
     setscheduledDateTime(getCurrentDateTime);
@@ -76,6 +86,28 @@ function ComposeCustom() {
     params.field == "template" && settemplateCellData(params.value);
     handleClose();
   };
+  const handlesmsType = (e) => {
+    setSmsType(e.target.value);
+  };
+  const handleComposeCustom = (e) => {
+    e.preventDefault();
+
+    const data = {
+      sender: sender,
+      category: category,
+      campaignTitle: campaignTitle,
+      entityID: entityID,
+      mobNo: mobNo,
+      isScheduled: isScheduled,
+      scheduledDateTime: scheduledDateTime,
+      dataFromTemplate: dataFromTemplate.startsWith("~")
+        ? ""
+        : dataFromTemplate,
+    };
+    setFormData(data);
+    console.log(data);
+  };
+
   useEffect(() => {
     if (colListSelectedItem !== "") {
       const inputId = `ti_${colClickCount}`;
@@ -150,7 +182,7 @@ function ComposeCustom() {
   return (
     <form
       // ref={customNormalForm}
-      // onSubmit={handleCustomNormal}
+      onSubmit={handleComposeCustom}
       className="flex h-fit w-full flex-col gap-2 rounded-md  border border-slate-200 bg-white p-6 pt-2"
       action=""
     >
@@ -162,7 +194,12 @@ function ComposeCustom() {
         />
       )}
       <FormControl>
-        <RadioGroup defaultValue="dynamicSMS" name="radio-buttons-group">
+        <RadioGroup
+          value={smsType}
+          onChange={handlesmsType}
+          defaultValue="dynamicSMS"
+          name="radio-buttons-group"
+        >
           <Box>
             <FormControlLabel
               value="dynamicSMS"
@@ -211,6 +248,8 @@ function ComposeCustom() {
         <TextField
           size="small"
           type="text"
+          onChange={handleCampaignTitle}
+          value={campaignTitle}
           className="w-full"
           name="campaignTitle"
           id="campaignTitle"
@@ -224,6 +263,8 @@ function ComposeCustom() {
         <TextField
           size="small"
           type="text"
+          onChange={handleentityID}
+          value={entityID}
           className="w-full"
           name="entityID"
           id="entityID"
