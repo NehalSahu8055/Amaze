@@ -145,11 +145,11 @@ function ComposeNormal({
 
   const handleDuplicateChecked = () => {
     setisDuplicateChecked((prev) => !prev);
-    // handleRemoveDuplicate();
+    handleRemoveDuplicate();
   };
   const handleInvalidChecked = () => {
     setisInvalidChecked((prev) => !prev);
-    // handleInvalidMobNo();
+    handleInvalidMobNo();
   };
   useEffect(() => {
     const outputt = document.querySelector("#output");
