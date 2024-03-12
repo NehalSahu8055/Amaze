@@ -250,7 +250,7 @@ function ComposeNormal({
               disabled
             />
             <Box className="flex items-center gap-2">
-              <FormControl>
+              <FormControl required>
                 <RadioGroup
                   onChange={handleIsScheduled}
                   defaultValue="now"
@@ -292,6 +292,7 @@ function ComposeNormal({
                 placeholder="Type or paste numbers here, one per line e.g  &#10;98XXXXXXXX  &#10;94XXXXXXXX"
                 className="mt-1 rounded-md border border-gray-300 p-2.5 outline-none focus:border focus:border-sky-600"
                 minRows="4"
+                inputProps={{ maxLength: 10 }}
                 required
               />
               <Box className=" flex justify-between">
